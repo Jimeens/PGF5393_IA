@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{import} \PYG{n+nn}{matplotlib.pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+        \PYG{k+kn}{from} \PYG{n+nn}{sklearn.decomposition} \PYG{k+kn}{import} \PYG{n}{PCA}
+\end{Verbatim}

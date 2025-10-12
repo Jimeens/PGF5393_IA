@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{dS} \PYG{o}{=} \PYG{n}{dS}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{n}{columns} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Star\PYGZsq{}}\PYG{p}{])}
+
+        \PYG{n}{varNum} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Temperature\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}L\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}R\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}A\PYGZus{}M\PYGZsq{}}\PYG{p}{]}
+        \PYG{n}{varCat} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Color\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}Spectral\PYGZus{}Class\PYGZsq{}}\PYG{p}{]}
+\end{Verbatim}

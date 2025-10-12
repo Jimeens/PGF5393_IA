@@ -1,0 +1,224 @@
+
+
+Iniciamos nossa análise importando os dados dos arquivos \href{https://raw.githubusercontent.com/Jimeens/Permanent_Files/refs/heads/main/PGF5393/Atividade1/Stars.csv}{\texttt{Stars.csv}} e \href{https://raw.githubusercontent.com/Jimeens/Permanent_Files/refs/heads/main/PGF5393/Atividade1/Categorias.csv}{\texttt{Categorias.csv}}. Para isso, importamos a biblioteca \verb|pandas|
+\begin{longlisting}
+    \begin{minted}{py}
+        import pandas as pd
+
+        dS = pd.read_csv('Stars.csv')
+        dC = pd.read_csv('Categorias.csv')
+
+        dS
+    \end{minted}
+\end{longlisting}
+
+Podemos ver que a tabela \verb|dS| possui as seguintes variáveis
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+        \verb|index| & \verb|Star| & \verb|Temperature| & \verb|L| & \verb|R| & \verb|A_M| & \verb|Color| & \verb|Spectral_Class| \\ 
+        \midrule
+        0 & 1 & 3068 & 0.002400 & 0.1700 & 16.12 & Red & M \\
+        1 & 2 & 3042 & 0.000500 & 0.1542 & 16.60 & Red & M \\
+        2 & 3 & 2600 & 0.000300 & 102.0000 & 18.70 & Red & M \\
+        3 & 4 & 2800 & 0.000200 & 0.1600 & 16.65 & Red & M \\
+        4 & 5 & 1939 & 0.000138 & 103.0000 & 20.06 & Red & M \\
+        $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+        235 & 236 & 38940 & 374830.000000 & 1356.0000 & -9.93 & Blue & O \\
+        236 & 237 & 30839 & 834042.000000 & 1194.0000 & -10.63 & Blue & O \\
+        237 & 238 & 8829 & 537493.000000 & 1423.0000 & -10.73 & White & A \\
+        238 & 239 & 9235 & 404940.000000 & 1112.0000 & -11.23 & White & A \\
+        239 & 240 & 37882 & 294903.000000 & 1783.0000 & -7.80 & Blue & O \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Antes de começar a preparar os dados, uma verificação curial é em relação à existência ou não valores ausentes nas duas tabelas, pois caso exista algum, é necessário fazer uma análise a mais nos dados. Na tabela \verb|dS|:
+\begin{longlisting}
+    \begin{minted}{py}
+        print("Valores ausentes na tabela Stars.csv:")
+        print(dS.isnull().sum())
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Valores ausentes em Stars.csv:
+    Temperature       0
+    L                 0
+    R                 0
+    A_M               0
+    Color             0
+    Spectral_Class    0
+\end{verbatim}
+e na tabela \verb|dC|:
+\begin{longlisting}
+    \begin{minted}{py}
+        print("Valores ausentes em Categorias.csv:")
+        print(dC.isnull().sum())
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Valores ausentes em Categorias.csv:
+    Star    0
+    Type    0
+\end{verbatim}
+
+Concluindo que não existem valores ausentes em nenhuma delas e portanto a análise pode ser desenvolvida diretamente.
+
+Ao olha para tabela, vemos que a coluna \verb|Star| é um identificador desnecessário, de modo que para anonimizar os dados, removemos esta coluna. Além disso, temos 4 variáveis numéricas (\verb|Temperature|, \verb|L|, \verb|R| e \verb|A_M|) e 2 variáveis categóricas (\verb|Color| e \verb|Spectral_Class|), tal que podemos separá-las em duas listas independentes.
+\begin{longlisting}
+    \begin{minted}{py}
+        dS = dS.drop(columns = ['Star'])
+
+        varNum = ['Temperature', 'L', 'R', 'A_M'] 
+        varCat = ['Color', 'Spectral_Class'] 
+    \end{minted}
+\end{longlisting}
+
+Em relação às variáveis numéricas, pode-se notar uma grande variação de escala nos dados, isto é, a variável \verb|Temperature| $\in[1939, 40000]$, a variável \verb|L| $\in[0.000080, 849420.0]$, a variável \verb|R| $\in [0.008400, 6237.0]$ e a variável \verb|A_M| $\in [-7346.0, 14776.0]$. 
+\begin{longlisting}
+    \begin{minted}{py}
+        dS.describe()
+    \end{minted}    
+\end{longlisting}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{ccccc}
+        \toprule
+        \verb|index| & \verb|Temperature| & \verb|L| & \verb|R| & \verb|A_M|  \\ 
+        \midrule
+        count & 240.000000 & 240.000000 & 240.000000 & 240.000000 \\
+        mean & 10497.462500 & 107200.578572 & 415.982944 & 121.369458 \\
+        std & 9552.425037 & 179424.946945 & 963.239600 & 2089.328079 \\
+        min & 1939.000000 & 0.000080 & 0.008400 & -7346.000000 \\
+        25\% & 3344.250000 & 0.000865 & 0.195025 & -6.342500 \\
+        50\% & 5776.000000 & 7.960000 & 18.000000 & 10.515000 \\
+        75\% & 15055.500000 & 198050.000000 & 277.500000 & 14.097500 \\
+        max & 40000.000000 & 849420.000000 & 6237.000000 & 14776.000000 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Esta grande variação de escala sugere um reescalonamento destes dados, o que será comentado em mais detalhes no item 2. 
+
+Uma análise inicial a ser feita é em relação à variável \verb|A_M|. Em relação aos dados presentes nesta coluna, aproximadamente 95\% possui duas casas decimais e estão em torno de um intervalo $[-10, 20]$, porém, existem alguns dados que são $> 100$ e $< -100$ ($|$\verb|A_M|$|$ $> 100$), que são números inteiros maiores que 1000, o que sugere uma inconsistência nestes valores. Para isso importamos a biblioteca \verb|numpy|
+\begin{longlisting}
+    \begin{minted}{py}
+        import numpy as np
+        
+        bigA_M = np.abs(dS['A_M'])
+        countBigA_M = (bigA_M > 100).sum()
+        
+        print(f"{100 * (240 - countBigA_M)/240:.3f}% estão abaixo de |A_M|<100")
+        bigA_MStars = dS[bigA_M > 100][['A_M']]
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    94.583% estão abaixo de |A_M|<100
+\end{verbatim}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cc}
+        \toprule
+        \verb|index| & \verb|A_M|  \\ 
+        \midrule
+        14 & 11782.0 \\
+        91 & 6506.0 \\
+        92 & 6228.0 \\
+        161 & -6245.0 \\
+        193 & 12854.0 \\
+        195 & 13667.0 \\
+        199 & 14776.0 \\
+        216 & 1236.0 \\
+        223 & -5975.0 \\
+        226 & -7262.0 \\
+        227 & -6224.0 \\
+        228 & -5905.0 \\
+        229 & -7346.0 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Para corrigi-los, impomos uma condição de divisão por um fator $1000$. 
+\begin{longlisting}
+    \begin{minted}{py}
+        dS['A_M'] = np.where(np.abs(dS['A_M']) > 100, dS['A_M'] / 1000, dS['A_M'])
+    \end{minted}
+\end{longlisting}
+
+Em relação às variáveis categóricas, há uma inconsistência nos dados da variável \verb|Color|. Existem dados que representam a mesma categoria, mas que estão escritas de forma diferente, por exemplo, a opção \verb|Blue Color| pode ser encontrada também nas formas \verb|Blue-Color|, \verb|Blue-color| e \verb|Blue color|, o que pode gerar inconsistências futuras na hora de analisar os dados. Faremos então um remapeamento desta variável levando em conta inconsistências de escrita e, como estamos lidando com cores, proximidades de tons.
+\begin{longlisting}
+    \begin{minted}{py}
+        color_map = {
+            'Red': 'Red',
+            'Orange': 'Orange',
+            'Orange-Red': 'Orange',
+            'Pale yellow orange': 'Orange',
+            'Yellowish': 'Yellow',
+            'yellowish': 'Yellow',
+            'Yellowish White': 'Yellowish_White',
+            'yellow-white': 'Yellowish_White',
+            'White-Yellow': 'Yellowish_White',
+            'Whitish': 'White',
+            'White': 'White',
+            'white': 'White',
+            'Blue': 'Blue',
+            'Blue White': 'Blue_White',
+            'Blue white': 'Blue_White',
+            'Blue-white': 'Blue_White',
+            'Blue-White': 'Blue_White'
+        }
+        dS['Color'] = dS['Color'].map(color_map).fillna(dS['Color'])
+    \end{minted}
+\end{longlisting}
+
+Com este remapeamento, podemos verificar que o número de tipos de \verb|Color| e a quantidade de \verb|Spectral_Class| são os mesmos e que devem possuir uma forte correlação, pois as quantidades são muito similares, principalmente para \verb|Color = Red| e \verb|Color = Blue_White|, que possuem muitos dados. Podemos então assumir que como uma é equivalente à outra, uma das duas colunas pode ser descartada para simplificação da análise. Neste caso, como os dados de \verb|Color|, originalmente, são inconsistentes e são relativamente difíceis de lidar, pois o nome de uma cor pode ser vista de diversas formas diferentes (ex.: considerar o que é laranja amarelado, laranja e laranja avermelhado acaba sendo um pouco complicado, pois não conseguimos de fato separar o que é mais laranja, mais amarela ou mais vermelho apenas olhando), pode ser interessante retirar esta coluna, de modo que a tabela \verb|dS| vai possuir apenas as colunas \verb|Temperature|, \verb|L|, \verb|R|, \verb|A_M| e \verb|Spectral_Class|.
+\begin{longlisting}
+    \begin{minted}{py}
+        dS = dS.drop(columns = ['Color'])
+    \end{minted}
+\end{longlisting}
+
+% Levando em consideração que iremos utilizar o método PCA e faremos uma clusterização, é necessário converter os dados categóricos em valores numéricos, o que pode ser feito utilizando o codificador \verb|OneHotEncoder(sparse_output = False)| da biblioteca \verb|sklearn|, cujo argumento interno ao codificador é usado para retornar uma matriz densa (\textit{dense array}) onde todos os valores (0 ou 1) são explicitamente armazenados.
+Levando em conta que iremos utilizar o método PCA e formaremos \textit{clusters}, é necessário converter os dados categóricos remanescentes na tabela em valores numérico. Então, para realizar a conversão da variável \verb|Spectral_Class|, podemos utilizar o codificador \verb|OneHotEncoder(sparse_output = False)| da biblioteca \verb|sklearn|, cujo argumento interno é usado para retornar uma matriz densa onde todos os valores binários são explicitamente armazenados.
+% \begin{longlisting}
+%     \begin{minted}{py}
+%         from sklearn.preprocessing import OneHotEncoder
+        
+%         encoder = OneHotEncoder(sparse_output=False) 
+%         encodedCat = encoder.fit_transform(dS[varCat])
+%         encodeddS = pd.DataFrame(encodedCat, columns=encoder.get_feature_names_out(varCat))
+
+%         encodeddS
+%     \end{minted}
+% \end{longlisting}
+\begin{longlisting}
+    \begin{minted}{py}
+        from sklearn.preprocessing import OneHotEncoder
+
+        encoder = OneHotEncoder(sparse_output=False)
+        encodedClass = encoder.fit_transform(dS[['Spectral_Class']])
+        encodeddS = pd.DataFrame(encodedClass, columns=encoder.get_feature_names_out())
+    \end{minted}
+\end{longlisting}
+onde \verb|encodeddS| vai retornar uma tabela com 240 linhas e 7 colunas, e cada coluna vai ser um dos tipos das \verb|Spectral_Class|.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        \toprule
+        \verb|index| & \verb|Spectral_Class_A| & \verb|Spectral_Class_B| & $\cdots$ & \verb|Spectral_Class_M| & \verb|Spectral_Class_O|  \\ 
+        \midrule
+        0 & 0.0 & 0.0 & $\cdots$ & 1.0 & 0.0  \\
+        1 & 0.0 & 0.0 & $\cdots$ & 1.0 & 0.0  \\
+        2 & 0.0 & 0.0 & $\cdots$ & 1.0 & 0.0  \\
+        3 & 0.0 & 0.0 & $\cdots$ & 1.0 & 0.0  \\
+        4 & 0.0 & 0.0 & $\cdots$ & 1.0 & 0.0  \\
+        $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ & $\cdots$ \\
+        235 & 0.0 & 0.0 & $\cdots$ & 0.0 & 1.0  \\
+        236 & 0.0 & 0.0 & $\cdots$ & 0.0 & 1.0  \\
+        237 & 1.0 & 0.0 & $\cdots$ & 0.0 & 0.0  \\
+        238 & 1.0 & 0.0 & $\cdots$ & 0.0 & 0.0  \\
+        239 & 0.0 & 0.0 & $\cdots$ & 0.0 & 1.0  \\
+        \bottomrule
+    \end{tabular}
+\end{table}

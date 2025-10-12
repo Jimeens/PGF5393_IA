@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{from} \PYG{n+nn}{sklearn.preprocessing} \PYG{k+kn}{import} \PYG{n}{OneHotEncoder}
+
+        \PYG{n}{encoder} \PYG{o}{=} \PYG{n}{OneHotEncoder}\PYG{p}{(}\PYG{n}{sparse\PYGZus{}output}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+        \PYG{n}{encodedClass} \PYG{o}{=} \PYG{n}{encoder}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{dS}\PYG{p}{[[}\PYG{l+s+s1}{\PYGZsq{}Spectral\PYGZus{}Class\PYGZsq{}}\PYG{p}{]])}
+        \PYG{n}{encodeddS} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{encodedClass}\PYG{p}{,} \PYG{n}{columns}\PYG{o}{=}\PYG{n}{encoder}\PYG{o}{.}\PYG{n}{get\PYGZus{}feature\PYGZus{}names\PYGZus{}out}\PYG{p}{())}
+\end{Verbatim}

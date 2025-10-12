@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{import} \PYG{n+nn}{pandas} \PYG{k}{as} \PYG{n+nn}{pd}
+
+        \PYG{n}{dS} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Stars.csv\PYGZsq{}}\PYG{p}{)}
+        \PYG{n}{dC} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Categorias.csv\PYGZsq{}}\PYG{p}{)}
+
+        \PYG{n}{dS}
+\end{Verbatim}

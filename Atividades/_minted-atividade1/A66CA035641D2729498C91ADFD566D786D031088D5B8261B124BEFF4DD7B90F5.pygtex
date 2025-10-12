@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{pca} \PYG{o}{=} \PYG{n}{PCA}\PYG{p}{()}
+        \PYG{n}{pca}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+        \PYG{n}{x} \PYG{o}{=} \PYG{n}{pca}\PYG{o}{.}\PYG{n}{transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+\end{Verbatim}

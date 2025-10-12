@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+
+        \PYG{n}{bigA\PYGZus{}M} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{dS}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZus{}M\PYGZsq{}}\PYG{p}{])}
+        \PYG{n}{countBigA\PYGZus{}M} \PYG{o}{=} \PYG{p}{(}\PYG{n}{bigA\PYGZus{}M} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{100}\PYG{p}{)}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{()}
+
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{l+m+mi}{100}\PYG{+w}{ }\PYG{o}{*}\PYG{+w}{ }\PYG{p}{(}\PYG{l+m+mi}{240}\PYG{+w}{ }\PYG{o}{\PYGZhy{}}\PYG{+w}{ }\PYG{n}{countBigA\PYGZus{}M}\PYG{p}{)}\PYG{o}{/}\PYG{l+m+mi}{240}\PYG{l+s+si}{:}\PYG{l+s+s2}{.3f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZpc{} estão abaixo de |A\PYGZus{}M|\PYGZlt{}100\PYGZdq{}}\PYG{p}{)}
+        \PYG{n}{bigA\PYGZus{}MStars} \PYG{o}{=} \PYG{n}{dS}\PYG{p}{[}\PYG{n}{bigA\PYGZus{}M} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{100}\PYG{p}{][[}\PYG{l+s+s1}{\PYGZsq{}A\PYGZus{}M\PYGZsq{}}\PYG{p}{]]}
+\end{Verbatim}

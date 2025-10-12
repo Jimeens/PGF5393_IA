@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Valores ausentes na tabela Stars.csv:\PYGZdq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{dS}\PYG{o}{.}\PYG{n}{isnull}\PYG{p}{()}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{())}
+\end{Verbatim}

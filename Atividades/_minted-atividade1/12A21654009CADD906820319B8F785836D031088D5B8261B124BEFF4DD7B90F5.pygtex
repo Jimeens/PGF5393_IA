@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{from} \PYG{n+nn}{sklearn.metrics} \PYG{k+kn}{import} \PYG{n}{adjusted\PYGZus{}rand\PYGZus{}score}
+
+        \PYG{n}{ariHierarchical} \PYG{o}{=} \PYG{n}{adjusted\PYGZus{}rand\PYGZus{}score}\PYG{p}{(}\PYG{n}{dC}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Type\PYGZsq{}}\PYG{p}{],} \PYG{n}{categoriasHier}\PYG{p}{)}
+        \PYG{n}{ariKMeans} \PYG{o}{=} \PYG{n}{adjusted\PYGZus{}rand\PYGZus{}score}\PYG{p}{(}\PYG{n}{dC}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Type\PYGZsq{}}\PYG{p}{],} \PYG{n}{categoriasKMeans}\PYG{p}{)}
+        \PYG{n}{ariDBSCAN} \PYG{o}{=} \PYG{n}{adjusted\PYGZus{}rand\PYGZus{}score}\PYG{p}{(}\PYG{n}{dC}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Type\PYGZsq{}}\PYG{p}{],} \PYG{n}{categoriasDBSCAN}\PYG{p}{)}
+
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}ARI Hierárquico: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{ariHierarchical}\PYG{l+s+si}{:}\PYG{l+s+s1}{.3f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}ARI KMeans: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{ariKMeans}\PYG{l+s+si}{:}\PYG{l+s+s1}{.3f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}ARI DBSCAN: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{ariDBSCAN}\PYG{l+s+si}{:}\PYG{l+s+s1}{.3f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

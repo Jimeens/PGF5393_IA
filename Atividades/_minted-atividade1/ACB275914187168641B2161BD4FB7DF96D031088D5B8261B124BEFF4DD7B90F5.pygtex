@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{k+kn}{from} \PYG{n+nn}{sklearn.preprocessing} \PYG{k+kn}{import} \PYG{n}{StandardScaler}
+
+        \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{StandardScaler}\PYG{p}{()}
+        \PYG{n}{scaledNum} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{dSNum}\PYG{p}{)}
+        \PYG{n}{scaledNumdS} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{scaledNum}\PYG{p}{,} \PYG{n}{columns} \PYG{o}{=} \PYG{n}{varNum}\PYG{p}{)}
+
+        \PYG{n}{X} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{concat}\PYG{p}{([}\PYG{n}{scaledNumdS}\PYG{p}{,} \PYG{n}{encodeddS}\PYG{p}{],} \PYG{n}{axis} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{)}
+\end{Verbatim}

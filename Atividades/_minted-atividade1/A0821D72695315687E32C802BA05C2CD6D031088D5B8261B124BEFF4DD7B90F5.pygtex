@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{dSNum} \PYG{o}{=} \PYG{n}{dS}\PYG{p}{[}\PYG{n}{varNum}\PYG{p}{]}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{()}
+
+        \PYG{n}{dSNum}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}L\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log10}\PYG{p}{(}\PYG{n}{dSNum}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}L\PYGZsq{}}\PYG{p}{]} \PYG{o}{+} \PYG{l+m+mf}{1e\PYGZhy{}10}\PYG{p}{)}
+        \PYG{n}{dSNum}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}R\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log10}\PYG{p}{(}\PYG{n}{dSNum}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}R\PYGZsq{}}\PYG{p}{]} \PYG{o}{+} \PYG{l+m+mf}{1e\PYGZhy{}10}\PYG{p}{)}
+\end{Verbatim}

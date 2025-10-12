@@ -1,0 +1,34 @@
+
+
+Podemos ver as três primeiras componentes principais do PCA utilizando a biblioteca \verb|pandas|. Destas componentes, é possível identificar as variáveis mais importantes selecionando valores absolutos das componentes principais do PCA mais altos
+\begin{longlisting}
+    \begin{minted}{py}
+        pcaComponents = pd.DataFrame(pca.components_[0:3].T, columns=['PC1', 'PC2', 'PC3'], index=X.columns)
+
+        abs(pcaComponents)
+    \end{minted}
+\end{longlisting}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccc}
+        \toprule
+        & \verb|PCA_1| & \verb|PCA_2| & \verb|PCA_2| \\ 
+        \midrule
+        \verb|Temperature| & 0.332925 & 0.730708 & 0.458173 \\
+        \verb|L| & 0.585445 & 0.065731 & 0.335921 \\
+        \verb|R| & 0.425175 & 0.542428 & 0.689673 \\
+        \verb|A_M| & 0.578364 & 0.046945 & 0.439852 \\
+        \verb|Spectral_Class_A| & 0.004354 & 0.012189 & 0.048415 \\
+        \verb|Spectral_Class_B| & 0.010021 & 0.218581 & 0.005799 \\
+        \verb|Spectral_Class_F| & 0.023540 & 0.021188 & 0.037369 \\
+        \verb|Spectral_Class_G| & 0.002907 & 0.003656 & 0.004012 \\
+        \verb|Spectral_Class_K| & 0.006852 & 0.020092 & 0.003542 \\
+        \verb|Spectral_Class_M| & 0.119179 & 0.326802 & 0.028266 \\
+        \verb|Spectral_Class_O| & 0.127293 & 0.098593 & 0.059273 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Na primeira componente do PCA (\verb|PCA_1|), as variáveis da tabela \verb|X| que são dominantes são \verb|L|, \verb|A_M|, \verb|R| e \verb|Temperature| ($>0.3$), na componente \verb|PCA_2|, as variáveis dominantes são \verb|Termperature|, \verb|R|, \verb|Spectral_Class_M| e \verb|Spectral_Class_B| ($>0.3$) e na última componente principal do PCA, as variáveis mais importantes são \verb|R|, \verb|Temperature|, \verb|A_M| e \verb|L| ($>0.3$). Podemos então estabelecer que para um \textit{threshold} igual a $0.3$ as variáveis mais importantes para o agrupamento dos dados são principalmente as numéricas \verb|Temperature|, \verb|L|, \verb|R| e \verb|A_M|, mas sem excluir a importância das duas variáveis categóricas que demonstraram importância na segunda componente principal do PCA. Estas duas variáveis podem ser entendidas como importantes na componente do PCA devido à grande quantidade de estrelas classificadas pelas classes \verb|M| e \verb|B|.
+
+Determinadas as variáveis mais importantes para explicar no mínimo 90\% da variância dos dados (que são as variáveis numéricas), podemos utilizar apenas a tabela que possui estes dados reescalonados e pré-processados, que é a tabela \verb|scaledNumdS|.

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{pcaComponents} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{pca}\PYG{o}{.}\PYG{n}{components\PYGZus{}}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{:}\PYG{l+m+mi}{3}\PYG{p}{]}\PYG{o}{.}\PYG{n}{T}\PYG{p}{,} \PYG{n}{columns}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}PC1\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}PC2\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}PC3\PYGZsq{}}\PYG{p}{],} \PYG{n}{index}\PYG{o}{=}\PYG{n}{X}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+
+        \PYG{n+nb}{abs}\PYG{p}{(}\PYG{n}{pcaComponents}\PYG{p}{)}
+\end{Verbatim}

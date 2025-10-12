@@ -1,0 +1,22 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+        \PYG{n}{color\PYGZus{}map} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+            \PYG{l+s+s1}{\PYGZsq{}Red\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Red\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Orange\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Orange\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Orange\PYGZhy{}Red\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Orange\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Pale yellow orange\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Orange\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Yellowish\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Yellow\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}yellowish\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Yellow\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Yellowish White\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Yellowish\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}yellow\PYGZhy{}white\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Yellowish\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}White\PYGZhy{}Yellow\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Yellowish\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Whitish\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}White\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}white\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Blue White\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Blue white\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZhy{}white\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZus{}White\PYGZsq{}}\PYG{p}{,}
+            \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZhy{}White\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}Blue\PYGZus{}White\PYGZsq{}}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{n}{dS}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Color\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{dS}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Color\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{map}\PYG{p}{(}\PYG{n}{color\PYGZus{}map}\PYG{p}{)}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{n}{dS}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}Color\PYGZsq{}}\PYG{p}{])}
+\end{Verbatim}
