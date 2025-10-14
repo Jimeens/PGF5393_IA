@@ -1,11 +1,11 @@
 # Fdb version 4
-["biber atividade2"] 1760403592.93965 "atividade2.bcf" "atividade2.bbl" "atividade2" 1760408625.61431 0
-  "atividade2.bcf" 1760408625.30995 107346 35605b14db8f6fee7d972c6d16adc310 "lualatex"
+["biber atividade2"] 1760403592.93965 "atividade2.bcf" "atividade2.bbl" "atividade2" 1760446326.48982 0
+  "atividade2.bcf" 1760446326.19648 107346 35605b14db8f6fee7d972c6d16adc310 "lualatex"
   (generated)
   "atividade2.bbl"
   "atividade2.blg"
   (rewritten before read)
-["lualatex"] 1760408621.20164 "/home/jimeens/Documentos/PGF5393_IA/Atividades/atividade2.tex" "atividade2.pdf" "atividade2" 1760408625.61471 0
+["lualatex"] 1760446322.42942 "/home/jimeens/Documentos/PGF5393_IA/Atividades/atividade2.tex" "atividade2.pdf" "atividade2" 1760446326.49022 0
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/fonts/otl/ebgaramond-bold.luc" 1759403390.68597 775384 a27328b6c86b82947b2132521a8acadc ""
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/fonts/otl/ebgaramond-bolditalic.luc" 1759402757.19556 651856 315f97ab3f506fab2134d517c2854827 ""
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/fonts/otl/ebgaramond-italic.luc" 1759403389.03896 529275 7718281912aea2e86fe25759d886cd74 ""
@@ -19,7 +19,7 @@
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1759402754.91053 127309 677951b359b90ddbfa3eb54f696122f6 ""
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc" 1760408619.99804 17809 462c5525fccc094d1b8839522a08465f ""
   "/home/jimeens/.texlive2023/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz" 1759402754.78653 403740 1645b4019bc05bba6fc67f9f56ae15eb ""
-  "/home/jimeens/Documentos/PGF5393_IA/Atividades/atividade2.tex" 1760408615.70312 2795 db99196fe6a0acb0f76e4d4e55ebe40d ""
+  "/home/jimeens/Documentos/PGF5393_IA/Atividades/atividade2.tex" 1760446318.06845 2795 abf8e4bd7df59debdc82ec6f95ffac76 ""
   "/usr/share/fonts/opentype/ebgaramond/EBGaramond12-Regular.otf" 1643918790 422280 3e124cea480748c9eebdb3f1ce139a43 ""
   "/usr/share/texlive/texmf-dist/fonts/opentype/public/ebgaramond/EBGaramond-Bold.otf" 1679344195 417272 fb7ec21239c27e80f50d20401aeda1da ""
   "/usr/share/texlive/texmf-dist/fonts/opentype/public/ebgaramond/EBGaramond-Italic.otf" 1679344195 306080 fa38657c318818be95501a485967b47e ""
@@ -346,12 +346,12 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1759387835.52964 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/tex/generic/config/language.dat" 1759385826.3819 5334 f2e0e91a61eb07da93d557c9a819aa88 ""
   "/var/lib/texmf/web2c/luahbtex/lualatex.fmt" 1759385855 12241594 67a45b03fb4ccdb111b8fce7cf2b8d9f ""
-  "atividade2.aux" 1760408625.28295 26740 9e9b0ff5a53d7423d5252c8409be750f "lualatex"
+  "atividade2.aux" 1760446326.16848 26740 9fe39334ef1b6c51b990a82f0100dfec "lualatex"
   "atividade2.bbl" 1760403595.61513 466 ee04f40f768daeed26442158e95aba61 "biber atividade2"
-  "atividade2.run.xml" 1760408625.31254 2377 eaeef8564ea9dfea43a8577ac54fcf16 "lualatex"
-  "atividade2.tex" 1760408615.70312 2795 db99196fe6a0acb0f76e4d4e55ebe40d ""
+  "atividade2.run.xml" 1760446326.19846 2377 eaeef8564ea9dfea43a8577ac54fcf16 "lualatex"
+  "atividade2.tex" 1760446318.06845 2795 abf8e4bd7df59debdc82ec6f95ffac76 ""
   "codeclass.cls" 1760402524.90728 3852 ae12ca728688d3e03cadeb513041ce52 ""
-  "content2/abstract.tex" 1760403679.76686 201 273893a5ff74975ec9e626ccc046f09e ""
+  "content2/abstract.tex" 1760444955.78945 201 21b4493a8fca439f73ad249d15e3d2d7 ""
   "content2/eight.tex" 1760403780.07065 10 bd7b9df22726ef3bc5bd602f3fd773fe ""
   "content2/five.tex" 1760403782.34495 10 bd7b9df22726ef3bc5bd602f3fd773fe ""
   "content2/four.tex" 1760403784.03264 10 bd7b9df22726ef3bc5bd602f3fd773fe ""
