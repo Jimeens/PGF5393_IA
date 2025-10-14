@@ -1,0 +1,50 @@
+\documentclass{codeclass}
+
+\title{Atividade 2}
+\author{\texorpdfstring{$\Jimeens\limits_{({\color{red!70!black}11917239})}$}{}}
+\affiliation{Instituto de Física, \href{https://ror.org/036rp1748}{Universidade de São Paulo}, Rua do Matão 1371, 05508-090, Cidade Universitária, São Paulo, Brasil} % Affiliation
+\dated{\today}
+
+\abstract{\input{content2/abstract}}
+
+\begin{document}
+
+\maketitle
+
+\section{Análise exploratória}
+
+    \input{content2/one.tex}
+
+\section{Preparação dos dados: escalonamento, transformação, particionamento}
+
+    \input{content2/two.tex}
+
+\section{Avaliar a importância dos atributos com base nos coeficientes de um modelo de regressão linear múltipla (com ou sem regularização, à sua escolha)}
+
+    \input{content2/three.tex}
+
+\section{Avaliar a importância dos atributos com base em um regressor RAndom Forest ou Gradient Boosting}
+
+    \input{content2/four.tex}
+
+\section{Com base nos resultados dos itens 3 e 4, selecionar os atributos mais importantes. O número de atributos fica à sua escolha. Justificar sua escolha. Discutir brevemente se os atributos possuem significado físico, ou seja, se de fato pode existir uma relação com a variável alvo (temperatura crítica)}
+
+    \input{content2/five.tex}
+
+\section{Aplicar uma técnica de redução de dimensionalidade, como PCA (análise de componentes principais), criando novos atributos a partir de uma combinação dos atributos originais. O número de componentes principais a serem utilizadas fica à sua escolha (justificar escolha)}
+
+    \input{content2/six.tex}
+
+\section{Construir um modelo de regressão linear múltipla com: a) os atribuutos mais importantes, escolhidos no item 5; b) usando as componentes principais como atributos (item 6). Comparar o desempenho desses modelos na predição da temperatura crítica e a sua inteerpretabilidade (isto é, se é fácil ou não interpretar o significado físico dos coeficientes ajustados). Avalie se o modelo é capaz de predizer diferentes faixas de valores de temperatura crítica}
+
+    \input{content2/seven.tex}
+
+\section{Construir um modelo de regressão baseado em Random Forest ou Gradient Boosting com: a) apenas os atributos mais importantes, escolhidos no item 5; b) usando as componentes principais como atributos (item 6). Lembre-se de otimizar os hiperparâmetros. Comparar o desempenho desses modelos na predição da temperatura crítica e sua interpretabilidade. Avalie se o modelo é capaz de predizer diferentes faixas de valores de temperatura crítica}
+
+    \input{content2/eight.tex}
+
+\section{Fazer uma breve discussão crítica sobre o desempenho, a interpretabilidade e o custo computacional dos modelos lineares e dos modelos baseados em árvores de decisão}
+
+    \input{content2/nine.tex}
+
+\end{document}
