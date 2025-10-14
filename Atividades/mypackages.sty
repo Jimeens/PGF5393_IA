@@ -3,17 +3,19 @@
 \RequirePackage[svgnames]{xcolor}
 \RequirePackage{standalone}
 \RequirePackage{silence}
-% \RequirePackage{fontspec}
-%     \defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
-%     \setmonofont{Latin Modern Mono}
-%     \setmainfont{EB Garamond}[
-%         SmallCapsFeatures = {Letters = SmallCaps},
-%         Ligatures = {Common, TeX},
-%         Numbers = {Proportional, Lining},
-%         RawFeature=+calt,]
-%     \setsansfont{Libertinus Sans}
-% \RequirePackage[verbose=silent,final]{microtype} 
-%     \DeclareMicrotypeAlias{EBGaramond-TU}{TU-basic}
+\RequirePackage{fontspec}
+    \defaultfontfeatures{Scale=MatchLowercase, Ligatures=TeX}
+    \setmainfont{EB Garamond}[
+        SmallCapsFeatures = {Letters = SmallCaps},
+        Ligatures = {Common, TeX},
+        Numbers = {Proportional, Lining},
+        BoldFont = {EB Garamond Bold},
+        ItalicFont = {EB Garamond Italic},
+        BoldItalicFont = {EB Garamond Bold Italic},
+        RawFeature=+calt,]
+    \setsansfont{Libertinus Sans}
+    \RequirePackage[verbose=silent,final]{microtype} 
+    \DeclareMicrotypeAlias{EBGaramond-TU}{TU-basic}
 \RequirePackage{lipsum} 
 \RequirePackage{soul}
 \RequirePackage[brazilian]{babel}
