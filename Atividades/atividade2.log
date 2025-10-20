@@ -1,8 +1,8 @@
-This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.10.2)  20 OCT 2025 20:03
+This is LuaHBTeX, Version 1.17.0 (TeX Live 2023/Debian)  (format=lualatex 2025.10.2)  20 OCT 2025 20:23
  system commands enabled.
  file:line:error style messages enabled.
-**/home/jimeens/Documentos/PGF5393_IA/PGF5393_IA/Atividades/atividade2.tex
-(/home/jimeens/Documentos/PGF5393_IA/PGF5393_IA/Atividades/atividade2.tex
+**/home/jimeens/Documentos/PGF5393_IA/PGF5393_IA-1/Atividades/atividade2.tex
+(/home/jimeens/Documentos/PGF5393_IA/PGF5393_IA-1/Atividades/atividade2.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
 Lua module: luaotfload 2023-08-31 3.26 Lua based OpenType font support
@@ -2698,9 +2698,9 @@ Here is how much of LuaTeX's memory you used:
    avail lists: 2:3740,3:2366,4:562,5:705,6:111,7:7192,8:37,9:1688,10:115,11:709
  70599 multiletter control sequences out of 65536+600000
  87 fonts using 15519151 bytes
- 167i,12n,173p,5361b,1688s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 167i,12n,173p,5367b,1688s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/fonts/opentype/ebgaramond/EBGaramond08-Regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-italic.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono8-regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmonolt10-bold.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/fontawesome/FontAwesome.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/libertinus-fonts/LibertinusSans-Regular.otf></usr/share/texmf/fonts/opentype/public/lm/lmmono10-regular.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/ebgaramond/EBGaramond-Italic.otf></usr/share/fonts/opentype/ebgaramond/EBGaramond12-Regular.otf></usr/share/texlive/texmf-dist/fonts/opentype/public/ebgaramond/EBGaramond-Bold.otf></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
-Output written on atividade2.pdf (21 pages, 415985 bytes).
+Output written on atividade2.pdf (21 pages, 415916 bytes).
 
 PDF statistics: 304 PDF objects out of 1000 (max. 8388607)
  231 compressed objects within 3 object streams

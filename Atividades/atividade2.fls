@@ -1,6 +1,6 @@
-PWD /home/jimeens/Documentos/PGF5393_IA/PGF5393_IA/Atividades
+PWD /home/jimeens/Documentos/PGF5393_IA/PGF5393_IA-1/Atividades
 INPUT /var/lib/texmf/web2c/luahbtex/lualatex.fmt
-INPUT /home/jimeens/Documentos/PGF5393_IA/PGF5393_IA/Atividades/atividade2.tex
+INPUT /home/jimeens/Documentos/PGF5393_IA/PGF5393_IA-1/Atividades/atividade2.tex
 OUTPUT atividade2.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/tex-ini-files/lualatexquotejobname.lua
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/ltluatex.lua
