@@ -1,1 +1,90 @@
-\lipsum[1]
+Utilizando o PCA para redução de dimensionalidade, importamos esta função do \verb|sklearn| e aplicamos os dados de \verb|XScaled| nela.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.decomposition import PCA
+
+    pca = PCA()
+    XScaledPCA = pca.fit_transform(XScaled)
+    \end{minted}
+\end{longlisting}
+
+Feito isso, podemos determinar a quantidade de variáveis que vão descrever pelo menos 90\% da variâncias dos dados com base na proporção de variância explicada por cada componente principal do PCA seguida de uma soma cumulativa destas proporções, que vai ser a explicabilidade.
+\begin{longlisting}
+    \begin{minted}{python}
+    propVarExpl = pca.explained_variance_ratio_
+    explanability = propVarExpl.cumsum()
+    factors = np.arange(1, XScaledPCA.shape[1] + 1, 1)
+    p = factors[explanability < 0.9].max() + 1
+    if p < 2:
+    p = 2
+
+    print(f"90% dos dados são explicados por {str(p)} componentes")
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    90% dos dados são explicados por 11 componentes
+\end{verbatim}
+
+Com isso podemos aplicar o PCA com 11 componentes.
+\begin{longlisting}
+    \begin{minted}{python}
+    pca = PCA(n_components = p)
+    XScaledPCA = pca.fit_transform(XScaled)
+    \end{minted}
+\end{longlisting}
+\begin{longlisting}
+    \begin{minted}{python}
+    XScaledPCA = pd.DataFrame(XScaledPCA, columns=[f'PCA{i+1}' for i in range(p)])
+
+    XScaledPCA.head()
+    \end{minted}
+\end{longlisting}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccc}
+        \toprule
+        \verb|index| & \verb|PCA1| & \verb|PCA2| & $\cdots$ & \verb|PCA10| & \verb|PCA11|  \\ 
+        \midrule
+        0 & -2.613069 & -1.564338 & $\cdots$ & -0.741646 & -0.155020 \\
+        1 & -3.069411 & -1.703630 & $\cdots$ & -1.265916 & 0.169184 \\
+        2 & -2.446743 & -1.584737 & $\cdots$ & -0.816391 & -0.174465 \\
+        3 & -2.533493 & -1.574762 & $\cdots$ & -0.779533 & -0.163746 \\
+        4 & -2.757162 & -1.543327 & $\cdots$ & -0.663989 & -0.142220 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+Uma análise extra seria: com base nas 11 componentes principais, podemos determinar quais são os atributos originais que mais contribuem para variância dos dados considerando um \textit{threshold} de 0.35. Este valor é estabelecido com base no seguinte argumento: o \textit{threshold} mais usual em análises com PCA é de 0.3, porém este valor nos retornaria 18 atributos, o que é um número muito grande e é melhor ser um pouco mais restritivo, portanto estabelecer um \textit{threshold} de 0.35 reduz a quantidade de atributos a 10 e melhora a determinação dos atributos mais importantes.
+\begin{longlisting}
+    \begin{minted}{python}
+    pcaComponents = pd.DataFrame(
+        pca.components_.T,
+        columns=[f'PCA{i+1}' for i in range(p)],
+        index=XScaled.columns
+    )
+
+    maxComponents = abs(pcaComponents).max(axis=1)
+    features = maxComponents[maxComponents >= 0.35].sort_values(ascending=False)
+
+    features
+    \end{minted}
+\end{longlisting}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{rc}
+        \toprule
+         & \verb|0| \\ 
+        \midrule
+        \verb|wtd_std_FusionHeat| & 0.501619 \\
+        \verb|wtd_mean_ThermalConductivity| & 0.482278 \\
+        \verb|range_FusionHeat| & 0.464858 \\
+        \verb|std_ElectronAffinity| & 0.441864 \\
+        \verb|std_FusionHeat| & 0.432842 \\
+        \verb|std_Density| & 0.387866 \\
+        \verb|gmean_atomic_mass| & 0.382578 \\
+        \verb|wtd_range_Density| & 0.380235 \\
+        \verb|wtd_std_ElectronAffinity| & 0.370153 \\
+        \verb|wtd_entropy_ElectronAffinity| & 0.352686 \\
+        \bottomrule
+    \end{tabular}
+\end{table}

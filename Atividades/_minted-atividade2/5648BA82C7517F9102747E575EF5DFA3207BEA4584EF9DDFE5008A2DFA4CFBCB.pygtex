@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{o}{\PYGZpc{}\PYGZpc{}}\PYG{n}{time}
+    \PYG{n}{paramGrid} \PYG{o}{=} \PYG{p}{\PYGZob{}} \PYG{l+s+s1}{\PYGZsq{}n\PYGZus{}estimators\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mi}{100}\PYG{p}{,} \PYG{l+m+mi}{200}\PYG{p}{,} \PYG{l+m+mi}{350}\PYG{p}{],}
+                \PYG{l+s+s1}{\PYGZsq{}max\PYGZus{}depth\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{k+kc}{None}\PYG{p}{,} \PYG{l+m+mi}{20}\PYG{p}{,} \PYG{l+m+mi}{40}\PYG{p}{],}
+                \PYG{l+s+s1}{\PYGZsq{}min\PYGZus{}samples\PYGZus{}leaf\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{4}\PYG{p}{]\PYGZcb{}}
+
+    \PYG{n}{RFRPCA} \PYG{o}{=} \PYG{n}{RandomForestRegressor}\PYG{p}{(}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{gridSearchPCA} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{RFRPCA}\PYG{p}{,} \PYG{n}{paramGrid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}neg\PYGZus{}mean\PYGZus{}squared\PYGZus{}error\PYGZsq{}}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{gridSearchPCA}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{XTrainPCA}\PYG{p}{,} \PYG{n}{yTrainLog}\PYG{p}{)}
+
+    \PYG{n}{bestEstimatorsPCA} \PYG{o}{=} \PYG{n}{gridSearchPCA}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}n\PYGZus{}estimators\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{bestDepthPCA} \PYG{o}{=} \PYG{n}{gridSearchPCA}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}max\PYGZus{}depth\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{bestLeafPCA} \PYG{o}{=} \PYG{n}{gridSearchPCA}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}min\PYGZus{}samples\PYGZus{}leaf\PYGZsq{}}\PYG{p}{]}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor n\PYGZus{}estimators:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestEstimatorsPCA}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor max\PYGZus{}depth:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestDepthPCA}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor min\PYGZus{}samples\PYGZus{}leaf:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestLeafPCA}\PYG{p}{)}
+\end{Verbatim}

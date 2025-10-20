@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{mseValues}\PYG{p}{(}\PYG{n}{yTrue}\PYG{p}{,} \PYG{n}{yPred}\PYG{p}{,} \PYG{n}{yOriginal}\PYG{p}{):}
+    \PYG{n}{temp} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{60}\PYG{p}{,} \PYG{l+m+mi}{120}\PYG{p}{,} \PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}\PYG{p}{]}
+    \PYG{n}{tempLabels} \PYG{o}{=} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}(\PYGZlt{}60K)\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}(60\PYGZhy{}120K)\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}(\PYGZgt{}120K)\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{groups} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{cut}\PYG{p}{(}\PYG{n}{yOriginal}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{temp}\PYG{p}{,} \PYG{n}{labels}\PYG{o}{=}\PYG{n}{tempLabels}\PYG{p}{)}
+
+    \PYG{k}{for} \PYG{n}{temps} \PYG{o+ow}{in} \PYG{n}{tempLabels}\PYG{p}{:}
+        \PYG{n}{mask} \PYG{o}{=} \PYG{n}{groups} \PYG{o}{==} \PYG{n}{temps}
+        \PYG{k}{if} \PYG{n}{mask}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{()} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{0}\PYG{p}{:}
+        \PYG{n}{groupMSE} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{yTrue}\PYG{p}{[}\PYG{n}{mask}\PYG{p}{],} \PYG{n}{yPred}\PYG{p}{[}\PYG{n}{mask}\PYG{p}{])}
+        \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}MSE }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{temps}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{groupMSE}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

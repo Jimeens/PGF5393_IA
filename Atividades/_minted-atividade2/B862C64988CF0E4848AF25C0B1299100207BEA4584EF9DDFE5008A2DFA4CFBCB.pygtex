@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{RFRWeight} \PYG{o}{=} \PYG{n}{r2RFR} \PYG{o}{/} \PYG{p}{(}\PYG{n}{r2RFR} \PYG{o}{+} \PYG{n}{r2Ridge}\PYG{p}{)}
+    \PYG{n}{ridgeWeight} \PYG{o}{=} \PYG{n}{r2Ridge} \PYG{o}{/} \PYG{p}{(}\PYG{n}{r2RFR} \PYG{o}{+} \PYG{n}{r2Ridge}\PYG{p}{)}
+    \PYG{n}{combinedImportances}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}combinedMetrics\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{RFRWeight} \PYG{o}{*} \PYG{n}{combinedImportances}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}RFRImportance\PYGZsq{}}\PYG{p}{]} \PYG{o}{+} \PYG{n}{ridgeWeight} \PYG{o}{*} \PYG{n}{combinedImportances}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}ridgeCoeficients\PYGZsq{}}\PYG{p}{]}
+\end{Verbatim}

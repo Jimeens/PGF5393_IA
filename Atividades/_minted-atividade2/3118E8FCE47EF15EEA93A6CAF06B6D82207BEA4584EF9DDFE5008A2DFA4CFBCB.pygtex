@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{bestEstimators} \PYG{o}{=} \PYG{l+m+mi}{350}
+    \PYG{n}{bestDepth} \PYG{o}{=} \PYG{l+m+mi}{20}
+    \PYG{n}{bestLeaf} \PYG{o}{=} \PYG{l+m+mi}{1}
+\end{Verbatim}

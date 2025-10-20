@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{o}{\PYGZpc{}\PYGZpc{}}\PYG{n}{time}
+    \PYG{n}{RFRSelected} \PYG{o}{=} \PYG{n}{RandomForestRegressor}\PYG{p}{(}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{gridSearchSelected} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{RFRSelected}\PYG{p}{,} \PYG{n}{paramGrid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}neg\PYGZus{}mean\PYGZus{}squared\PYGZus{}error\PYGZsq{}}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{gridSearchSelected}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{XTrainSelected}\PYG{p}{,} \PYG{n}{yTrainLog}\PYG{p}{)}
+
+    \PYG{n}{bestEstimatorsSelected} \PYG{o}{=} \PYG{n}{gridSearchSelected}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}n\PYGZus{}estimators\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{bestDepthSelected} \PYG{o}{=} \PYG{n}{gridSearchSelected}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}max\PYGZus{}depth\PYGZsq{}}\PYG{p}{]}
+    \PYG{n}{bestLeafSelected} \PYG{o}{=} \PYG{n}{gridSearchSelected}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}min\PYGZus{}samples\PYGZus{}leaf\PYGZsq{}}\PYG{p}{]}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor n\PYGZus{}estimators:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestEstimatorsSelected}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor max\PYGZus{}depth:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestDepthSelected}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor min\PYGZus{}samples\PYGZus{}leaf:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestLeafSelected}\PYG{p}{)}
+\end{Verbatim}

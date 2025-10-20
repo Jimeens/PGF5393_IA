@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{yTrainLog} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log1p}\PYG{p}{(}\PYG{n}{yTrain}\PYG{p}{)}
+    \PYG{n}{yTestLog} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{log1p}\PYG{p}{(}\PYG{n}{yTest}\PYG{p}{)}
+\end{Verbatim}

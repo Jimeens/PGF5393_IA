@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{propVarExpl} \PYG{o}{=} \PYG{n}{pca}\PYG{o}{.}\PYG{n}{explained\PYGZus{}variance\PYGZus{}ratio\PYGZus{}}
+    \PYG{n}{explanability} \PYG{o}{=} \PYG{n}{propVarExpl}\PYG{o}{.}\PYG{n}{cumsum}\PYG{p}{()}
+    \PYG{n}{factors} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{arange}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{XScaledPCA}\PYG{o}{.}\PYG{n}{shape}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{p} \PYG{o}{=} \PYG{n}{factors}\PYG{p}{[}\PYG{n}{explanability} \PYG{o}{\PYGZlt{}} \PYG{l+m+mf}{0.9}\PYG{p}{]}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()} \PYG{o}{+} \PYG{l+m+mi}{1}
+    \PYG{k}{if} \PYG{n}{p} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{2}\PYG{p}{:}
+    \PYG{n}{p} \PYG{o}{=} \PYG{l+m+mi}{2}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}90\PYGZpc{} dos dados são explicados por }\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{ componentes\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

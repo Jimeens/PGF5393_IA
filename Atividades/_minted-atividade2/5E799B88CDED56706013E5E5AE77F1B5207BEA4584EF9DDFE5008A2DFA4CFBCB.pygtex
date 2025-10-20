@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{remove\PYGZus{}correlated\PYGZus{}features}\PYG{p}{(}\PYG{n}{corrMatrix}\PYG{p}{,} \PYG{n}{importances}\PYG{p}{,} \PYG{n}{threshold}\PYG{p}{):}
+        \PYG{n}{selected} \PYG{o}{=} \PYG{p}{[]}
+        \PYG{n}{excluded} \PYG{o}{=} \PYG{n+nb}{set}\PYG{p}{()}
+
+        \PYG{k}{for} \PYG{n}{feature} \PYG{o+ow}{in} \PYG{n}{importances}\PYG{o}{.}\PYG{n}{index}\PYG{p}{:}
+            \PYG{k}{if} \PYG{n}{feature} \PYG{o+ow}{in} \PYG{n}{excluded}\PYG{p}{:}
+                \PYG{k}{continue}
+            \PYG{n}{selected}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{feature}\PYG{p}{)}
+            \PYG{n}{correlated} \PYG{o}{=} \PYG{n}{corrMatrix}\PYG{o}{.}\PYG{n}{index}\PYG{p}{[}\PYG{n}{corrMatrix}\PYG{p}{[}\PYG{n}{feature}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{threshold}\PYG{p}{]}\PYG{o}{.}\PYG{n}{tolist}\PYG{p}{()}
+            \PYG{k}{for} \PYG{n}{c} \PYG{o+ow}{in} \PYG{n}{correlated}\PYG{p}{:}
+                \PYG{k}{if} \PYG{n}{c} \PYG{o}{!=} \PYG{n}{feature}\PYG{p}{:}
+                    \PYG{n}{excluded}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{c}\PYG{p}{)}
+        \PYG{k}{return} \PYG{n}{selected}
+\end{Verbatim}

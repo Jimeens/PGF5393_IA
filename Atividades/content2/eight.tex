@@ -1,1 +1,151 @@
-\lipsum[1]
+Fazendo o mesmo procedimento feito no item 7, porém utilizando Random Forest, precisamos otimizar alguns hiperparâmetros que serão utilizados, como foi feito no item 4, então usamos o GridSearchCV com os mesmos hiperparâmetros escolhidos no item 4, isto é
+\begin{longlisting}
+    \begin{minted}{python}
+    paramGrid = { 'n_estimators': [100, 200, 350],
+                'max_depth': [None, 20, 40],
+                'min_samples_leaf': [1, 2, 4]}
+    \end{minted}
+\end{longlisting}
+
+A partir disso, fazemos o o procedimento de encontrar esses hiperparâmetros. Como o código abaixo demorou 38min 58s, armazenamos os valores separadamente para execução mais rápida do que queremos de fato determinar, que será o $R^{2}_{\text{RFR}}$ e o MSE utilizando Random Forest.
+\begin{longlisting}
+    \begin{minted}{python}
+    %%time
+    RFRSelected = RandomForestRegressor(random_state=42)
+    gridSearchSelected = GridSearchCV(RFRSelected, paramGrid, cv=3, scoring='neg_mean_squared_error', n_jobs=-1)
+    gridSearchSelected.fit(XTrainSelected, yTrainLog)
+
+    bestEstimatorsSelected = gridSearchSelected.best_params_['n_estimators']
+    bestDepthSelected = gridSearchSelected.best_params_['max_depth']
+    bestLeafSelected = gridSearchSelected.best_params_['min_samples_leaf']
+
+    print("Melhor n_estimators:", bestEstimatorsSelected)
+    print("Melhor max_depth:", bestDepthSelected)
+    print("Melhor min_samples_leaf:", bestLeafSelected)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Melhor n_estimators: 350
+    Melhor max_depth: 40
+    Melhor min_samples_leaf: 1
+    CPU times: user 1min 48s, sys: 0 ns, total: 1min 48s
+    Wall time: 38min 58s
+\end{verbatim}
+
+\begin{longlisting}
+    \begin{minted}{python}
+    bestEstimatorsSelected = 350
+    bestDepthSelected = 40
+    bestLeafSelected = 1
+    \end{minted}
+\end{longlisting}
+
+Com estes hiperparâmetros, podemos determinar os valores de MSE e $R^{2}_{\text{RFR}}$ com apenas os atributos selecionados no item 5.
+\begin{longlisting}
+    \begin{minted}{python}
+    %%time
+    RFRSelected = RandomForestRegressor(max_depth=bestDepthSelected, min_samples_leaf=bestLeafSelected, n_estimators=bestEstimatorsSelected, random_state=42)
+    RFRSelected.fit(XTrainSelected, yTrainLog)
+    yPredRFRSelected = RFRSelected.predict(XTestSelected)
+
+    mseRFRSelected = mean_squared_error(yTestLog, yPredRFRSelected)
+    r2RFRSelected = r2_score(yTestLog, yPredRFRSelected)
+
+    print("MSE:", mseRFRSelected)
+    print("R²:", r2RFRSelected)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.12665666417875918
+    R²: 0.9241783258165404
+    CPU times: user 1min 41s, sys: 0 ns, total: 1min 41s
+    Wall time: 1min 41s
+\end{verbatim}
+
+Comparando os valores de $R^{2} \approx 93.0\%$ obtido com todos os atributos e o $R^{2}_{\text{RFR}} \approx 92.4\%$ obtido apenas com os atributos selecionados, temos uma diferença praticamente irrelevante neste valor, da ordem de $\sim 0.6\%$, portanto o Random Forest apenas com os atributos selecionados acaba sendo muito bom para prever a temperatura crítica.
+
+Fazendo o mesmo procedimento para as componentes principais, temos primeiro otimizando os hiperparâmetros:
+\begin{longlisting}
+    \begin{minted}{python}
+    %%time
+    paramGrid = { 'n_estimators': [100, 200, 350],
+                'max_depth': [None, 20, 40],
+                'min_samples_leaf': [1, 2, 4]}
+
+    RFRPCA = RandomForestRegressor(random_state=42)
+    gridSearchPCA = GridSearchCV(RFRPCA, paramGrid, cv=3, scoring='neg_mean_squared_error', n_jobs=-1)
+    gridSearchPCA.fit(XTrainPCA, yTrainLog)
+
+    bestEstimatorsPCA = gridSearchPCA.best_params_['n_estimators']
+    bestDepthPCA = gridSearchPCA.best_params_['max_depth']
+    bestLeafPCA = gridSearchPCA.best_params_['min_samples_leaf']
+
+    print("Melhor n_estimators:", bestEstimatorsPCA)
+    print("Melhor max_depth:", bestDepthPCA)
+    print("Melhor min_samples_leaf:", bestLeafPCA)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Melhor n_estimators: 350
+    Melhor max_depth: 40
+    Melhor min_samples_leaf: 1
+    CPU times: user 1min 58s, sys: 68.9 ms, total: 1min 58s
+    Wall time: 41min 27s
+\end{verbatim}
+
+Como o comando acima demora 41min 27s, os melhores parâmetros vão ser armazenados separadamente.
+\begin{longlisting}
+    \begin{minted}{python}
+    bestEstimatorsPCA = 350
+    bestDepthPCA = 40
+    bestLeafPCA = 1
+    \end{minted}
+\end{longlisting}
+
+E com isso o Random Forest com as componentes principais vai ficar:
+\begin{longlisting}
+    \begin{minted}{python}
+    %%time
+    RFRPCA = RandomForestRegressor(max_depth=bestDepthPCA, min_samples_leaf=bestLeafPCA, n_estimators=bestEstimatorsPCA, random_state=42)
+    RFRPCA.fit(XTrainPCA, yTrainLog)
+    yPredRFRPCA = RFRPCA.predict(XTestPCA)
+
+    mseRFRPCA = mean_squared_error(yTestLog, yPredRFRPCA)
+    r2RFRPCA = r2_score(yTestLog, yPredRFRPCA)
+
+    print("MSE:", mseRFRPCA)
+    print("R²:", r2RFRPCA)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.14267285887327238
+    R²: 0.9145904000357674
+    CPU times: user 1min 50s, sys: 275 ms, total: 1min 50s
+    Wall time: 1min 51s
+\end{verbatim}
+
+Vemos então que em comparação, os valores de $R^{2} \approx 93.0\%$ e $R^{2}_{\text{PCA}} \approx 91.5\%$ são bem próximo, com uma diferença apenas da ordem de $\sim 1.5\%$, o que se mantém muito bom para previsibilidade dos valores de temperatura, porém interpretar fisicamente este caso acaba sendo inviável, por estarmos novamente tratando de uma combinação linear dos atributos mais relevantes.
+
+Usando então a função \verb|mse_values| criada, podemos verificar a capacidade de predição dos 2 métodos em diferentes faixas de temperatura.
+\begin{longlisting}
+    \begin{minted}{python}
+    print("Random Forest dos atributos selecionados:")
+    mseValues(yTestLog, yPredRFRSelected, yTest)
+
+    print("\nRandom Forest do PCA:")
+    mseValues(yTestLog, yPredRFRPCA, yTest)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Random Forest dos atributos selecionados:
+    MSE (<60K): 0.15579846994429303
+    MSE (60-120K): 0.041285222868479916
+    MSE (>120K): 0.014600577656779823
+
+    Random Forest do PCA:
+    MSE (<60K): 0.17247268155669102
+    MSE (60-120K): 0.05577584675594284
+    MSE (>120K): 0.01770229347152548
+\end{verbatim}
+
+Os valores de MSE para os dois métodos e para todas as faixas de temperatura consideradas foram bem baixas, o que é muito bom, pois o erro multiplicativo vai ser bem baixo para todas as faixas, sendo maior apenas na faixa onde tempo mais materiais que é para temperatura crítica $<60~\text{K}$.

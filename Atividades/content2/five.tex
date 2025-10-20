@@ -1,1 +1,84 @@
-\lipsum[1]
+Com base nos itens 3 e 4, podemos selecionar os atributos mais importantes combinando os resultados e excluindo variáveis que possuem correlações muito altas entre si, isto é, se dentro dos atributos mais importantes temos atributos altamente correlacionados, apenas o atributo com maior valor de importância (normalizada) vai permanecer na análise. Isto faz com que possamos abranger um pouco mais da física do problema.
+
+Como descrito no item 2, utilizamos um *threshold* de correlação de 0.6, então mantemos esse valor como base.
+\begin{longlisting}
+    \begin{minted}{python}
+    corrThreshold = 0.6
+    \end{minted}
+\end{longlisting}
+
+Podemos combinar os coeficientes do Ridge e as importâncias do Random Forest e normalizá-las.
+\begin{longlisting}
+    \begin{minted}{python}
+    combinedImportances = pd.DataFrame({
+        'RFRImportance': importances / importances.max(),
+        'ridgeCoeficients': np.abs(coeficientes) / np.abs(coeficientes).max()
+    }).fillna(0)
+    \end{minted}
+\end{longlisting}
+
+Combinamos as métricas, utilizando uma média ponderada baseada no R² dos métodos.
+\begin{longlisting}
+    \begin{minted}{python}
+    RFRWeight = r2RFR / (r2RFR + r2Ridge)
+    ridgeWeight = r2Ridge / (r2RFR + r2Ridge)
+    combinedImportances['combinedMetrics'] = RFRWeight * combinedImportances['RFRImportance'] + ridgeWeight * combinedImportances['ridgeCoeficients']
+    \end{minted}
+\end{longlisting}
+
+Organizamos os atributos em ordem de importância e construimos uma matriz de correlação com o conjunto de treino.
+\begin{longlisting}
+    \begin{minted}{python}
+    combinedImportancesSorted = combinedImportances.sort_values('combinedMetrics', ascending=False)
+    corrMatrix = XTrain.corr().abs()
+    \end{minted}
+\end{longlisting}
+
+Definimos uma função que remove variáveis altamente correlacionadas entre si levando em conta uma matriz de correlação, o valor das importâncias (sejam elas combinadas ou não) e o *threshold* pré estabelecido.
+\begin{longlisting}
+    \begin{minted}{python}
+    def remove_correlated_features(corrMatrix, importances, threshold):
+        selected = []
+        excluded = set()
+
+        for feature in importances.index:
+            if feature in excluded:
+                continue
+            selected.append(feature)
+            correlated = corrMatrix.index[corrMatrix[feature] > threshold].tolist()
+            for c in correlated:
+                if c != feature:
+                    excluded.add(c)
+        return selected
+    \end{minted}
+\end{longlisting}
+
+Por fim, aplicamos esta função nas variáveis acima definidas e obtemos os atributos de interesse.
+\begin{longlisting}
+    \begin{minted}{python}
+    selectedFeatures = remove_correlated_features(corrMatrix, combinedImportancesSorted, corrThreshold)
+
+    print("Quantidade de atributos selecionados:", len(selectedFeatures))
+    for f in selectedFeatures:
+        print(f)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Quantidade de atributos selecionados: 14
+    range_ThermalConductivity
+    wtd_mean_fie
+    wtd_mean_atomic_mass
+    wtd_gmean_FusionHeat
+    mean_fie
+    std_atomic_mass
+    range_Valence
+    wtd_entropy_fie
+    wtd_mean_ThermalConductivity
+    std_ElectronAffinity
+    wtd_gmean_ElectronAffinity
+    wtd_std_FusionHeat
+    entropy_ThermalConductivity
+    wtd_range_Density
+\end{verbatim}
+
+Os atributos mais importantes identificados pelo modelo estão relacionados principalmente às propriedades térmicas, eletrônicas e estruturais dos materiais. Propriedades como condutividade térmica, afinidade e energia de ionização dos elétrons, massa atômica e valência influenciam diretamente a forma como os elétrons interagem com a rede cristalina. Essas interações determinam a energia necessária para a transição ao estado supercondutor, e portanto, contribuem com a temperatura crítica.

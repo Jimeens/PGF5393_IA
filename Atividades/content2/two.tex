@@ -1,1 +1,32 @@
-\lipsum[1]
+Devido à existência de muitos \textit{outliers} e algumas escalas serem bastante distintas, como mostrado anteriormente, podemos utilizar o \verb|RobustScaler()| da biblioteca \verb|sklearn| para reescalonar o conjunto de dados e assim melhorar a análise. Antes de fazer isto, precisamos separar a temperatura crítica dos dados, pois ela é nossa variável alvo.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.preprocessing import RobustScaler
+
+    X = dados.drop(columns=['critical_temp'])
+    y = dados['critical_temp']
+
+    scaler = RobustScaler()
+    XScaled = scaler.fit_transform(X)
+    XScaled = pd.DataFrame(XScaled, columns=X.columns)
+    \end{minted}
+\end{longlisting}
+
+Podemos então dividir o conjunto de dados em 80\% para treino e 20\% para teste, e para isso importamos a função \verb|train_test_split| do \verb|sklearn|.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.model_selection import train_test_split
+
+    XTrain, XTest, yTrain, yTest = train_test_split(XScaled, y, test_size=0.2, random_state=42)
+    \end{minted}
+\end{longlisting}
+
+Como descrito na parte 1, a distribuição das temperaturas críticas sugere uma transformação logarítmica nos dados para melhorar a normalidade, portanto usamos a biblioteca \verb|numpy|. Como estamos tratando de temperaturas em Kelvin, é impossível que algum dos materiais tenha temperatura crítica igual a zero, o que elimina a necessidade de tratar valores com logarítmo de zero, portanto escolho a função \verb|np.log1p(y)|, que é a mesma coisa que fazer $\ln(y+1)$. Esta escolha parte do pressuposto de que essa função lida bem com valores próximos de zero.
+\begin{longlisting}
+    \begin{minted}{python}
+    yTrainLog = np.log1p(yTrain)
+    yTestLog = np.log1p(yTest)
+    \end{minted}
+\end{longlisting}
+
+Note que esta escolha deve ser feita pós particionamento dos dados, para evitar vazamento.

@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k}{if} \PYG{l+s+s1}{\PYGZsq{}google.colab\PYGZsq{}} \PYG{o+ow}{in} \PYG{n+nb}{str}\PYG{p}{(}\PYG{n}{get\PYGZus{}ipython}\PYG{p}{()):}
+        \PYG{err}{!}\PYG{n}{git} \PYG{n}{clone} \PYG{n}{https}\PYG{p}{:}\PYG{o}{//}\PYG{n}{github}\PYG{o}{.}\PYG{n}{com}\PYG{o}{/}\PYG{n}{tiagofiorini}\PYG{o}{/}\PYG{n}{MLinPhysics}\PYG{o}{.}\PYG{n}{git}
+        \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{os}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{os}
+        \PYG{n}{os}\PYG{o}{.}\PYG{n}{chdir}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}./MLinPhysics\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

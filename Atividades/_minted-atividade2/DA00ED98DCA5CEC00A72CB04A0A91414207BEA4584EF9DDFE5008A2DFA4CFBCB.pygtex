@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.decomposition}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{PCA}
+
+    \PYG{n}{pca} \PYG{o}{=} \PYG{n}{PCA}\PYG{p}{()}
+    \PYG{n}{XScaledPCA} \PYG{o}{=} \PYG{n}{pca}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{XScaled}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.metrics}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{,} \PYG{n}{r2\PYGZus{}score}
+
+    \PYG{n}{mseRidge} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRidge}\PYG{p}{)}
+    \PYG{n}{r2Ridge} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRidge}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}MSE:\PYGZdq{}}\PYG{p}{,} \PYG{n}{mseRidge}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}R²:\PYGZdq{}}\PYG{p}{,} \PYG{n}{r2Ridge}\PYG{p}{)}
+\end{Verbatim}

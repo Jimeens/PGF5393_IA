@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{combinedImportancesSorted} \PYG{o}{=} \PYG{n}{combinedImportances}\PYG{o}{.}\PYG{n}{sort\PYGZus{}values}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}combinedMetrics\PYGZsq{}}\PYG{p}{,} \PYG{n}{ascending}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+    \PYG{n}{corrMatrix} \PYG{o}{=} \PYG{n}{XTrain}\PYG{o}{.}\PYG{n}{corr}\PYG{p}{()}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{()}
+\end{Verbatim}

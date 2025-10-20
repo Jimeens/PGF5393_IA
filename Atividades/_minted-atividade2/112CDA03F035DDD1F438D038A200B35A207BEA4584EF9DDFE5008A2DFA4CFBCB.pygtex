@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{RFR} \PYG{o}{=} \PYG{n}{RandomForestRegressor}\PYG{p}{(}\PYG{n}{max\PYGZus{}depth}\PYG{o}{=}\PYG{n}{bestDepth}\PYG{p}{,} \PYG{n}{min\PYGZus{}samples\PYGZus{}leaf}\PYG{o}{=}\PYG{n}{bestLeaf}\PYG{p}{,} \PYG{n}{n\PYGZus{}estimators}\PYG{o}{=}\PYG{n}{bestEstimators}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{RFR}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{XTrain}\PYG{p}{,} \PYG{n}{yTrainLog}\PYG{p}{)}
+    \PYG{n}{yPredRFR} \PYG{o}{=} \PYG{n}{RFR}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{XTest}\PYG{p}{)}
+
+    \PYG{n}{importances} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{Series}\PYG{p}{(}\PYG{n}{RFR}\PYG{o}{.}\PYG{n}{feature\PYGZus{}importances\PYGZus{}}\PYG{p}{,} \PYG{n}{index}\PYG{o}{=}\PYG{n}{X}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{importances}\PYG{o}{.}\PYG{n}{sort\PYGZus{}values}\PYG{p}{(}\PYG{n}{ascending}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}\PYG{o}{.}\PYG{n}{head}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{))}
+\end{Verbatim}

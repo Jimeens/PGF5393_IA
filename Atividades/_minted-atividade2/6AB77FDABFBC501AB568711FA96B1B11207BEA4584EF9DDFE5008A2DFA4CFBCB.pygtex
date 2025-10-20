@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.preprocessing}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{RobustScaler}
+
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{dados}\PYG{o}{.}\PYG{n}{drop}\PYG{p}{(}\PYG{n}{columns}\PYG{o}{=}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}critical\PYGZus{}temp\PYGZsq{}}\PYG{p}{])}
+    \PYG{n}{y} \PYG{o}{=} \PYG{n}{dados}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}critical\PYGZus{}temp\PYGZsq{}}\PYG{p}{]}
+
+    \PYG{n}{scaler} \PYG{o}{=} \PYG{n}{RobustScaler}\PYG{p}{()}
+    \PYG{n}{XScaled} \PYG{o}{=} \PYG{n}{scaler}\PYG{o}{.}\PYG{n}{fit\PYGZus{}transform}\PYG{p}{(}\PYG{n}{X}\PYG{p}{)}
+    \PYG{n}{XScaled} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(}\PYG{n}{XScaled}\PYG{p}{,} \PYG{n}{columns}\PYG{o}{=}\PYG{n}{X}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{)}
+\end{Verbatim}

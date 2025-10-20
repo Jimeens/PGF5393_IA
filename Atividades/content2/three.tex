@@ -1,1 +1,64 @@
-\lipsum[1]
+Como discutido na parte 1, algumas variáveis possuem uma colinearidade considerável, o que sugere o uso de uma regressão linear com regularização L2 (Ridge), pois assim conseguimos evitar \textit{overfitting}. Para isso importamos a função \verb|Ridge| do \verb|sklearn|. Como o uso do Ridge exije a escolha de um parâmetro de regularização \verb|alpha|, podemos determinar a melhor escolha deste parâmetro utilizando o método de \textit{Grid Search} com validação crizada, usando o \verb|GridSearchCV| e usar como \verb|scoring| o atributo \verb|neg_mean_squared_error|, também do \verb|sklearn|, pois isso otimiza o erro quadrático médio na escala transformada \verb|yTEst|.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.linear_model import Ridge
+    from sklearn.model_selection import GridSearchCV
+
+    ridge = Ridge(random_state=42)
+    paramGrid = {'alpha': [0.001, 0.01, 0.1, 1, 10, 100]}
+
+    gridSearch = GridSearchCV(ridge, paramGrid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
+    gridSearch.fit(XTrain, yTrainLog)
+
+    bestAlpha = gridSearch.best_params_['alpha']
+
+    print("Melhor alpha:", bestAlpha)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Melhor alpha: 0.01
+\end{verbatim}
+
+Encontrado o melhor \verb|alpha|, basta aplicarmos o Ridge aos valores de treino \verb|XTrain| e \verb|yTrain|.
+\begin{longlisting}
+    \begin{minted}{python}
+    ridge = Ridge(alpha=bestAlpha, random_state=42)
+    ridge.fit(XTrain, yTrainLog)
+    yPredRidge = ridge.predict(XTest)
+
+    coeficientes = pd.Series(ridge.coef_, index = X.columns)
+    print(coeficientes.sort_values(ascending = False).head(10))
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    wtd_mean_fie                 7.746846
+    wtd_mean_atomic_radius       2.366502
+    range_fie                    1.507192
+    wtd_gmean_FusionHeat         1.365609
+    mean_Valence                 1.005128
+    wtd_gmean_atomic_mass        0.986664
+    entropy_atomic_radius        0.865486
+    wtd_mean_Density             0.822395
+    gmean_fie                    0.821225
+    wtd_entropy_atomic_radius    0.818379
+    dtype: float64
+\end{verbatim}
+
+Para verificar o quão bom estão estes dados, podemos utilizar duas métricas: o MSE (\verb|mean_squared_error|) e o R² (\verb|r2_score|), ambos do sklearn.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.metrics import mean_squared_error, r2_score
+
+    mseRidge = mean_squared_error(yTestLog, yPredRidge)
+    r2Ridge = r2_score(yTestLog, yPredRidge)
+
+    print("MSE:", mseRidge)
+    print("R²:", r2Ridge)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.39034631146596926
+    R²: 0.7663233037235521
+\end{verbatim}
+
+O valor de $R^{2} \approx 76.6\%$ indica que cerca de $76.6\%$ da variância da temperatura crítica (em escala logaritmica) pode ser explicada pelas variáveis do modelo. No caso do valor do erro médio quadrático, mesmo que seja um valor considerável, se analisarmos a raiz deste valor (RMSE), e exponenciarmos, teremos $\exp(\sqrt{\text{MSE}}) \approx 1.86$, indicando um erro multiplicativo médio inferior a $2$ na escala original, indicando que o modelo é capaz de capturar a maior parte das tendências que determinam a temperatura crítica. Fazemos isso, pois o valor obtido de MSE está na escala logaritmica, dado que transformamos a variável \verb|y|.

@@ -1,1 +1,92 @@
-\lipsum[1]
+Com os atributos selecionados no item 5 (\verb|selectedFeatures|), podemos separar o conjunto de treino (\verb|XTrain|) e conjunto de teste (\verb|XTest|) selecionando essas variáveis.
+\begin{longlisting}
+    \begin{minted}{python}
+    XTrainSelected = XTrain[selectedFeatures]
+    XTestSelected = XTest[selectedFeatures]
+    \end{minted}
+\end{longlisting}
+
+Fazendo então o modelo de regressão linear com regularização L2 (Ridge) com esses atributos.
+\begin{longlisting}
+    \begin{minted}{python}
+    ridgeSelected = Ridge(alpha=bestAlpha, random_state=42)
+    ridgeSelected.fit(XTrainSelected, yTrainLog)
+    yPredRidgeSelected = ridgeSelected.predict(XTestSelected)
+
+    mseRidgeSelected = mean_squared_error(yTestLog, yPredRidgeSelected)
+    r2RidgeSelected = r2_score(yTestLog, yPredRidgeSelected)
+
+    print("MSE:", mseRidgeSelected)
+    print("R²:", r2RidgeSelected)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.579789840505915
+    R²: 0.6529149360852038
+\end{verbatim}
+
+No caso das componentes do PCA, para evitar vazamento de dados, refazemos o PCA com 11 componentes no conjunto de treino (\verb|XTrain|) e no de teste (\verb|XTest|).
+\begin{longlisting}
+    \begin{minted}{python}
+    XTrainPCA = pca.fit_transform(XTrain)
+    XTestPCA = pca.transform(XTest)
+
+    ridgePCA = Ridge(alpha=bestAlpha, random_state=42)
+    ridgePCA.fit(XTrainPCA, yTrainLog)
+    yPredRidgePCA = ridgePCA.predict(XTestPCA)
+
+    mseRidgePCA = mean_squared_error(yTestLog, yPredRidgePCA)
+    r2RidgePCA = r2_score(yTestLog, yPredRidgePCA)
+
+    print("MSE:", mseRidgePCA)
+    print("R²:", r2RidgePCA)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.5906987562390906
+    R²: 0.6463844289083507
+\end{verbatim}
+
+Quando utilizamos todos os atributos, o $R^{2} \approx 76.6\%$, e nestes dois ultimos casos obtivemos $R^{2}_{\text{slctd}} \approx 65.3\%$ e $R^{2}_{\text{PCA}} \approx 64.6\%$, portanto, mesmo reduzindo bastante a dimensionalidade, os valores ainda são relativamente próximos, com uma diferença da ordem de $\sim 10\%$, o que é aceitável, tendo em mente que inicialmente tinhamos 81 atributos e reduzimos para 14 deles no primeiro método e 11 componentes principais no segundo.
+
+No caso do resultado para os atributos selecionados ($R^{2}_{\text{slctd}}$), o significado físico é interpretável, pois estamos utilizando os atributos originais do problema, selecionando apenas os mais influentes. No caso das componentes principais do PCA ($R^{2}_{\text{PCA}}$), nós temos uma combinações lineares dos atributos originais, então interpretar fisicamente os coeficientes acaba sendo mais difícil.
+
+Para verificar o quão bem os modelos predizem a temperatura crítica em diferentes faixas, podemos criar uma função que verifica o MSE em 3 diferentes regiões de temperatura, levando em conta que a temperatura crítica varia de $0.000210$ a $185~\text{K}$: abaixo de $60~\text{K}$, num intervalo entre $60$ e $120~\text{K}$ e acima de $120~\text{K}$.
+\begin{longlisting}
+    \begin{minted}{python}
+    def mseValues(yTrue, yPred, yOriginal):
+    temp = [0, 60, 120, np.inf]
+    tempLabels = ['(<60K)', '(60-120K)', '(>120K)']
+    groups = pd.cut(yOriginal, bins=temp, labels=tempLabels)
+
+    for temps in tempLabels:
+        mask = groups == temps
+        if mask.sum() > 0:
+        groupMSE = mean_squared_error(yTrue[mask], yPred[mask])
+        print(f"MSE {temps}: {groupMSE}")
+    \end{minted}
+\end{longlisting}
+
+Com essa função podemos avaliar o MSE para cada faixa de temperatura de cada um dos modelos usados.
+\begin{longlisting}
+    \begin{minted}{python}
+    print("Ridge dos atributos selecionados:")
+    mseValues(yTestLog, yPredRidgeSelected, yTest)
+
+    print("\nRidge do PCA:")
+    mseValues(yTestLog, yPredRidgePCA, yTest)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Ridge dos atributos selecionados:
+    MSE (<60K): 0.6619997669538773
+    MSE (60-120K): 0.33651629841528335
+    MSE (>120K): 0.32663991238347967
+
+    Ridge do PCA:
+    MSE (<60K): 0.6732424357626846
+    MSE (60-120K): 0.34564439110905343
+    MSE (>120K): 0.35700521359657433
+\end{verbatim}
+
+É perceptível então que para faixas de temperatura mais altas, ambos os modelos possuem um erro multiplicativo mais baixo, porém para temperaturas menores o MSE é alto o suficiente para ser considerado problemático. Isso pode ser explicado possivelmente pela alta quantidade de materiais que possuem temperatura abaixo de $60~\text{K}$, conforme pode ser visto no histograma de temperatura crítica na parte 1, gerando uma alta variabilidade nos dados e talvez uma previsibilidade reduzida.

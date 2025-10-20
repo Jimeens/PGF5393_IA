@@ -1,0 +1,14 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.linear\PYGZus{}model}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Ridge}
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.model\PYGZus{}selection}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{GridSearchCV}
+
+    \PYG{n}{ridge} \PYG{o}{=} \PYG{n}{Ridge}\PYG{p}{(}\PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{paramGrid} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZsq{}}\PYG{p}{:} \PYG{p}{[}\PYG{l+m+mf}{0.001}\PYG{p}{,} \PYG{l+m+mf}{0.01}\PYG{p}{,} \PYG{l+m+mf}{0.1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{100}\PYG{p}{]\PYGZcb{}}
+
+    \PYG{n}{gridSearch} \PYG{o}{=} \PYG{n}{GridSearchCV}\PYG{p}{(}\PYG{n}{ridge}\PYG{p}{,} \PYG{n}{paramGrid}\PYG{p}{,} \PYG{n}{cv}\PYG{o}{=}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{n}{scoring}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}neg\PYGZus{}mean\PYGZus{}squared\PYGZus{}error\PYGZsq{}}\PYG{p}{,} \PYG{n}{n\PYGZus{}jobs}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{gridSearch}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{XTrain}\PYG{p}{,} \PYG{n}{yTrainLog}\PYG{p}{)}
+
+    \PYG{n}{bestAlpha} \PYG{o}{=} \PYG{n}{gridSearch}\PYG{o}{.}\PYG{n}{best\PYGZus{}params\PYGZus{}}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}alpha\PYGZsq{}}\PYG{p}{]}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Melhor alpha:\PYGZdq{}}\PYG{p}{,} \PYG{n}{bestAlpha}\PYG{p}{)}
+\end{Verbatim}

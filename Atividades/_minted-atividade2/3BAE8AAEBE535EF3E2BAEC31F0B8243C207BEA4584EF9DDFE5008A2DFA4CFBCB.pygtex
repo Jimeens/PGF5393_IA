@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{o}{\PYGZpc{}\PYGZpc{}}\PYG{n}{time}
+    \PYG{n}{RFRPCA} \PYG{o}{=} \PYG{n}{RandomForestRegressor}\PYG{p}{(}\PYG{n}{max\PYGZus{}depth}\PYG{o}{=}\PYG{n}{bestDepthPCA}\PYG{p}{,} \PYG{n}{min\PYGZus{}samples\PYGZus{}leaf}\PYG{o}{=}\PYG{n}{bestLeafPCA}\PYG{p}{,} \PYG{n}{n\PYGZus{}estimators}\PYG{o}{=}\PYG{n}{bestEstimatorsPCA}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{RFRPCA}\PYG{o}{.}\PYG{n}{fit}\PYG{p}{(}\PYG{n}{XTrainPCA}\PYG{p}{,} \PYG{n}{yTrainLog}\PYG{p}{)}
+    \PYG{n}{yPredRFRPCA} \PYG{o}{=} \PYG{n}{RFRPCA}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{XTestPCA}\PYG{p}{)}
+
+    \PYG{n}{mseRFRPCA} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRFRPCA}\PYG{p}{)}
+    \PYG{n}{r2RFRPCA} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRFRPCA}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}MSE:\PYGZdq{}}\PYG{p}{,} \PYG{n}{mseRFRPCA}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}R²:\PYGZdq{}}\PYG{p}{,} \PYG{n}{r2RFRPCA}\PYG{p}{)}
+\end{Verbatim}

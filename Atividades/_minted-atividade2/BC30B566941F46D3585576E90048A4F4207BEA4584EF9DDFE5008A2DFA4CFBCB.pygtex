@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{XTrainSelected} \PYG{o}{=} \PYG{n}{XTrain}\PYG{p}{[}\PYG{n}{selectedFeatures}\PYG{p}{]}
+    \PYG{n}{XTestSelected} \PYG{o}{=} \PYG{n}{XTest}\PYG{p}{[}\PYG{n}{selectedFeatures}\PYG{p}{]}
+\end{Verbatim}

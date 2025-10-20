@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Ridge dos atributos selecionados:\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{mseValues}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRidgeSelected}\PYG{p}{,} \PYG{n}{yTest}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{Ridge do PCA:\PYGZdq{}}\PYG{p}{)}
+    \PYG{n}{mseValues}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRidgePCA}\PYG{p}{,} \PYG{n}{yTest}\PYG{p}{)}
+\end{Verbatim}

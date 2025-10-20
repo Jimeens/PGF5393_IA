@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{mseRFR} \PYG{o}{=} \PYG{n}{mean\PYGZus{}squared\PYGZus{}error}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRFR}\PYG{p}{)}
+    \PYG{n}{r2RFR} \PYG{o}{=} \PYG{n}{r2\PYGZus{}score}\PYG{p}{(}\PYG{n}{yTestLog}\PYG{p}{,} \PYG{n}{yPredRFR}\PYG{p}{)}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}MSE:\PYGZdq{}}\PYG{p}{,} \PYG{n}{mseRFR}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}R²:\PYGZdq{}}\PYG{p}{,} \PYG{n}{r2RFR}\PYG{p}{)}
+\end{Verbatim}

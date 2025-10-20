@@ -1,1 +1,80 @@
-\lipsum[1]
+Escolhendo um regressor Random Forest pra avaliar a importância dos atributos, importamos a função \verb|RandomForestRegressor| do \verb|sklearn|. Da mesma forma que fizemos para determinar o melhor \verb|alpha| na função Ridge, podemos determinar o melhor \verb|n_estimators| da função \verb|RandomForestRegressor| com o \verb|GridSearchCV|. Como o custo computacional pra encontrar esse valor otimizado é muito alto, é preferível definir uma profundidade máxima do Random Forest (que escolho como sendo 10).
+\begin{longlisting}
+    \begin{minted}{python}
+    %%time
+    from sklearn.ensemble import RandomForestRegressor
+
+    RFR = RandomForestRegressor(random_state=42)
+    paramGrid = { 'n_estimators': [150, 250, 350],
+                'max_depth': [None, 20, 40],
+                'min_samples_leaf': [1, 2, 4]}
+
+    gridSearch = GridSearchCV(RFR, paramGrid, cv=3, scoring='neg_mean_squared_error', n_jobs=-1, verbose=1)
+    gridSearch.fit(XTrain, yTrain)
+
+    bestEstimators = gridSearch.best_params_['n_estimators']
+    bestDepth = gridSearch.best_params_['max_depth']
+    bestLeaf = gridSearch.best_params_['min_samples_leaf']
+
+    print("Melhor n_estimators:", bestEstimators)
+    print("Melhor max_depth:", bestDepth)
+    print("Melhor min_samples_leaf:", bestLeaf)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Fitting 3 folds for each of 27 candidates, totalling 81 fits
+    Melhor n_estimators: 250
+    Melhor max_depth: 20
+    Melhor min_samples_leaf: 1
+    CPU times: user 6min 30s, sys: 13.8 s, total: 6min 44s
+    Wall time: 3h 49min 2s
+\end{verbatim}
+
+Ao verificar os melhores hiperparâmetros selecionados para o Radom Forest, foi determinado após (3h 49min 2s) que o melhor valor de \verb|n_estimators = 350|, o melhor de \verb|max_depth = 20| e o melhor de \verb|min_samples_leaf = 1|. Como o código acima demora muito tempo pra ser executado, após confirmar os valores, torno essa parte do programa um comentário e salvo os melhores valores separadamente.
+\begin{longlisting}
+    \begin{minted}{python}
+    bestEstimators = 350
+    bestDepth = 20
+    bestLeaf = 1
+    \end{minted}
+\end{longlisting}
+\begin{longlisting}
+    \begin{minted}{python}
+    RFR = RandomForestRegressor(max_depth=bestDepth, min_samples_leaf=bestLeaf, n_estimators=bestEstimators, random_state=42)
+    RFR.fit(XTrain, yTrainLog)
+    yPredRFR = RFR.predict(XTest)
+
+    importances = pd.Series(RFR.feature_importances_, index=X.columns)
+    print(importances.sort_values(ascending=False).head(10))
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    range_ThermalConductivity        0.604150
+    mean_Density                     0.052367
+    wtd_gmean_ThermalConductivity    0.038381
+    wtd_mean_atomic_mass             0.015584
+    wtd_std_ElectronAffinity         0.015372
+    wtd_gmean_ElectronAffinity       0.013949
+    wtd_mean_ThermalConductivity     0.010111
+    range_atomic_radius              0.009012
+    std_ThermalConductivity          0.008445
+    wtd_gmean_Valence                0.008275
+    dtype: float64
+\end{verbatim}
+
+Aqui as variáveis obtidas pelo Random Forest vão ser aquelas que reduzem a variância na predição.
+\begin{longlisting}
+    \begin{minted}{python}
+    mseRFR = mean_squared_error(yTestLog, yPredRFR)
+    r2RFR = r2_score(yTestLog, yPredRFR)
+
+    print("MSE:", mseRFR)
+    print("R²:", r2RFR)
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    MSE: 0.11751767353522158
+    R²: 0.9296492860335409
+\end{verbatim}
+
+Vemos então que $R^{2} \approx 93.0\%$ a variância da temperatura crícita (em escala logaritmica) pode ser explicada pelas variáveis selecionadas pelo modelo. No caso do erro médio quadrático, se determinarmos o RMSE e exponenciarmos, vamos obter algo como $\exp(\sqrt{\text{MSE}}) \approx 1.41$, indicando um erro multiplicativo ainda menor do que o obtido na regressão linear.

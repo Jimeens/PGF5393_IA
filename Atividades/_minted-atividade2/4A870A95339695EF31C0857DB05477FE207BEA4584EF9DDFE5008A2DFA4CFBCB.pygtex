@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{combinedImportances} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{DataFrame}\PYG{p}{(\PYGZob{}}
+        \PYG{l+s+s1}{\PYGZsq{}RFRImportance\PYGZsq{}}\PYG{p}{:} \PYG{n}{importances} \PYG{o}{/} \PYG{n}{importances}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(),}
+        \PYG{l+s+s1}{\PYGZsq{}ridgeCoeficients\PYGZsq{}}\PYG{p}{:} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{coeficientes}\PYG{p}{)} \PYG{o}{/} \PYG{n}{np}\PYG{o}{.}\PYG{n}{abs}\PYG{p}{(}\PYG{n}{coeficientes}\PYG{p}{)}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()}
+    \PYG{p}{\PYGZcb{})}\PYG{o}{.}\PYG{n}{fillna}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)}
+\end{Verbatim}
