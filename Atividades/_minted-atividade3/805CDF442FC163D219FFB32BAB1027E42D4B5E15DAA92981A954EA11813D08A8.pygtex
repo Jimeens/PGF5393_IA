@@ -1,0 +1,16 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.model\PYGZus{}selection}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{train\PYGZus{}test\PYGZus{}split}
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{numpy}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{np}
+
+    \PYG{n}{trainRatio} \PYG{o}{=} \PYG{l+m+mf}{0.6}
+    \PYG{n}{validationRatio} \PYG{o}{=} \PYG{l+m+mf}{0.15}
+    \PYG{n}{testRatio} \PYG{o}{=} \PYG{l+m+mf}{0.25}
+
+    \PYG{n}{randomState} \PYG{o}{=} \PYG{l+m+mi}{42}
+
+    \PYG{n}{X} \PYG{o}{=} \PYG{n}{lowLevel}
+    \PYG{n}{y} \PYG{o}{=} \PYG{n}{classLabel}
+
+    \PYG{n}{XTrain}\PYG{p}{,} \PYG{n}{XTest}\PYG{p}{,} \PYG{n}{yTrain}\PYG{p}{,} \PYG{n}{yTest} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{X}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{test\PYGZus{}size} \PYG{o}{=} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{trainRatio}\PYG{p}{,} \PYG{n}{stratify} \PYG{o}{=} \PYG{n}{y}\PYG{p}{,} \PYG{n}{random\PYGZus{}state} \PYG{o}{=} \PYG{n}{randomState}\PYG{p}{)}
+    \PYG{n}{XVal}\PYG{p}{,} \PYG{n}{XTest}\PYG{p}{,} \PYG{n}{yVal}\PYG{p}{,} \PYG{n}{yTest} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{XTest}\PYG{p}{,} \PYG{n}{yTest}\PYG{p}{,} \PYG{n}{test\PYGZus{}size} \PYG{o}{=} \PYG{n}{testRatio}\PYG{o}{/}\PYG{p}{(}\PYG{n}{testRatio} \PYG{o}{+} \PYG{n}{validationRatio}\PYG{p}{),} \PYG{n}{stratify} \PYG{o}{=} \PYG{n}{yTest}\PYG{p}{,} \PYG{n}{random\PYGZus{}state} \PYG{o}{=} \PYG{n}{randomState}\PYG{p}{)}
+\end{Verbatim}

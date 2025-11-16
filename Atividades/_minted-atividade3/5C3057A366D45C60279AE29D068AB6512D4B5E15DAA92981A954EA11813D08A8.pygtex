@@ -1,0 +1,54 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{highLevelTrain}\PYG{p}{,} \PYG{n}{highLevelTest} \PYG{o}{=} \PYG{n}{train\PYGZus{}test\PYGZus{}split}\PYG{p}{(}\PYG{n}{highLevel}\PYG{p}{,} \PYG{n}{test\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mf}{0.25}\PYG{p}{,} \PYG{n}{random\PYGZus{}state}\PYG{o}{=}\PYG{l+m+mi}{42}\PYG{p}{)}
+    \PYG{n}{mWWbbTest} \PYG{o}{=} \PYG{n}{highLevelTest}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}m\PYGZus{}wwbb\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+
+    \PYG{n}{yPredProb} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{predict}\PYG{p}{(}\PYG{n}{XTest}\PYG{p}{)}
+    \PYG{n}{yPred} \PYG{o}{=} \PYG{p}{(}\PYG{n}{yPredProb} \PYG{o}{\PYGZgt{}} \PYG{l+m+mf}{0.5}\PYG{p}{)}\PYG{o}{.}\PYG{n}{astype}\PYG{p}{(}\PYG{n+nb}{int}\PYG{p}{)}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+
+    \PYG{n}{mWWbb} \PYG{o}{=} \PYG{n}{mWWbbTest}
+
+    \PYG{n}{mSinalTrue} \PYG{o}{=} \PYG{n}{mWWbb}\PYG{p}{[}\PYG{n}{yTest} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{]}
+    \PYG{n}{mSinalPred} \PYG{o}{=} \PYG{n}{mWWbb}\PYG{p}{[}\PYG{n}{yPred} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{]}
+
+    \PYG{n}{mFundoTrue} \PYG{o}{=} \PYG{n}{mWWbb}\PYG{p}{[}\PYG{n}{yTest} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{n}{mFundoPred} \PYG{o}{=} \PYG{n}{mWWbb}\PYG{p}{[}\PYG{n}{yPred} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{]}
+
+    \PYG{k}{def}\PYG{+w}{ }\PYG{n+nf}{make\PYGZus{}bins}\PYG{p}{(}\PYG{n}{data}\PYG{p}{):}
+        \PYG{n}{vmin} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{min}\PYG{p}{()}
+        \PYG{n}{vmax} \PYG{o}{=} \PYG{n}{data}\PYG{o}{.}\PYG{n}{max}\PYG{p}{()}
+        \PYG{k}{return} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{vmin}\PYG{p}{,} \PYG{n}{vmax}\PYG{p}{,} \PYG{l+m+mi}{101}\PYG{p}{)}
+
+    \PYG{n}{fig}\PYG{p}{,} \PYG{p}{(}\PYG{n}{axSinal}\PYG{p}{,} \PYG{n}{axFundo}\PYG{p}{)} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{9}\PYG{p}{),} \PYG{n}{sharex}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+
+    \PYG{n}{binsSinal} \PYG{o}{=} \PYG{n}{make\PYGZus{}bins}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{concatenate}\PYG{p}{([}\PYG{n}{mSinalTrue}\PYG{p}{,} \PYG{n}{mSinalPred}\PYG{p}{]))}
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{mSinalTrue}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{binsSinal}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}black\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal real\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{mSinalPred}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{binsSinal}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}magenta\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dashed\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal predito\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Sinal: \PYGZdl{}m\PYGZus{}}\PYG{l+s+si}{\PYGZob{}wwbb\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{} (real vs predito)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Frequência de eventos\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{(}\PYG{n}{binsSinal}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{binsSinal}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{])}
+
+    \PYG{n}{legendaSinal} \PYG{o}{=} \PYG{p}{[}
+        \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}black\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal real\PYGZsq{}}\PYG{p}{),}
+        \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}magenta\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dashed\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal predito\PYGZsq{}}\PYG{p}{)}
+    \PYG{p}{]}
+    \PYG{n}{axSinal}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{handles}\PYG{o}{=}\PYG{n}{legendaSinal}\PYG{p}{,} \PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper right\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{binsFundo} \PYG{o}{=} \PYG{n}{make\PYGZus{}bins}\PYG{p}{(}\PYG{n}{np}\PYG{o}{.}\PYG{n}{concatenate}\PYG{p}{([}\PYG{n}{mFundoTrue}\PYG{p}{,} \PYG{n}{mFundoPred}\PYG{p}{]))}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{mFundoTrue}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{binsFundo}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dotted\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo real\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{mFundoPred}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{binsFundo}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}blue\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dashed\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo predito\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Fundo: \PYGZdl{}m\PYGZus{}}\PYG{l+s+si}{\PYGZob{}wwbb\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{} (real vs predito)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}\PYGZdl{}m\PYGZus{}}\PYG{l+s+si}{\PYGZob{}wwbb\PYGZcb{}}\PYG{l+s+s1}{\PYGZdl{}\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Frequência de eventos\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{(}\PYG{n}{binsFundo}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{binsFundo}\PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{])}
+
+    \PYG{n}{legendaFundo} \PYG{o}{=} \PYG{p}{[}
+        \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dotted\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo real\PYGZsq{}}\PYG{p}{),}
+        \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}blue\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dashed\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo predito\PYGZsq{}}\PYG{p}{)}
+    \PYG{p}{]}
+    \PYG{n}{axFundo}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{handles}\PYG{o}{=}\PYG{n}{legendaFundo}\PYG{p}{,} \PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}upper right\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

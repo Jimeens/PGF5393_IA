@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{test\PYGZus{}loss}\PYG{p}{,} \PYG{n}{test\PYGZus{}acc} \PYG{o}{=} \PYG{n}{model}\PYG{o}{.}\PYG{n}{evaluate}\PYG{p}{(}\PYG{n}{XTest}\PYG{p}{,} \PYG{n}{yTest}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Acurácia no teste: }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{test\PYGZus{}acc}\PYG{l+s+si}{:}\PYG{l+s+s1}{.4f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

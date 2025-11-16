@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{model}\PYG{o}{.}\PYG{n}{save}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}higgs\PYGZus{}classifier\PYGZus{}keras.keras\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Modelo gravado como higgs\PYGZus{}classifier\PYGZus{}keras.keras\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

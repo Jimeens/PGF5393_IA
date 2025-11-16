@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.metrics}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{classification\PYGZus{}report}
+
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{classification\PYGZus{}report}\PYG{p}{(}\PYG{n}{yTest}\PYG{p}{,} \PYG{n}{yPred}\PYG{p}{))}
+\end{Verbatim}

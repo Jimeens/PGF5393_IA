@@ -1,0 +1,15 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{gdown}
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{pandas}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{pd}
+
+    \PYG{n}{file} \PYG{o}{=} \PYG{p}{\PYGZob{}}
+        \PYG{l+s+s1}{\PYGZsq{}filename\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}HIGGS\PYGZus{}100k.csv\PYGZsq{}}\PYG{p}{,}
+        \PYG{l+s+s2}{\PYGZdq{}file\PYGZus{}id\PYGZdq{}} \PYG{p}{:} \PYG{l+s+s2}{\PYGZdq{}1mrzlmpPh4copC7ZULocAGhA1xAep88Sy\PYGZdq{}}
+    \PYG{p}{\PYGZcb{}}
+
+    \PYG{n}{url} \PYG{o}{=} \PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}https://drive.google.com/uc?id=}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{file}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}file\PYGZus{}id\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}
+    \PYG{n}{gdown}\PYG{o}{.}\PYG{n}{download}\PYG{p}{(}\PYG{n}{url}\PYG{p}{,} \PYG{n}{file}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}filename\PYGZsq{}}\PYG{p}{],} \PYG{n}{quiet}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{file}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}filename\PYGZsq{}}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{ baixado com sucesso e armazenado em \PYGZdq{}dados\PYGZdq{}.\PYGZsq{}}\PYG{p}{)}
+
+    \PYG{n}{dados} \PYG{o}{=} \PYG{n}{pd}\PYG{o}{.}\PYG{n}{read\PYGZus{}csv}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}HIGGS\PYGZus{}100k.csv\PYGZsq{}}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{seaborn}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{sns}
+
+    \PYG{n}{corr\PYGZus{}matrix} \PYG{o}{=} \PYG{n}{XTrain}\PYG{o}{.}\PYG{n}{corr}\PYG{p}{()}
+
+    \PYG{n}{sns}\PYG{o}{.}\PYG{n}{heatmap}\PYG{p}{(}\PYG{n}{corr\PYGZus{}matrix}\PYG{p}{,} \PYG{n}{annot}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{,} \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}inferno\PYGZsq{}}\PYG{p}{,} \PYG{n}{vmin}\PYG{o}{=\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{vmax}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Matriz de Correlação dos 21 atributos low\PYGZhy{}level\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

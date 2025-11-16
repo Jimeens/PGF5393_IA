@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{l+m+mi}{782}\PYG{o}{/}\PYG{l+m+mi}{782} \PYG{err}{━━━━━━━━━━━━━━━━━━━━} \PYG{l+m+mi}{1}\PYG{n}{s} \PYG{l+m+mi}{2}\PYG{n}{ms}\PYG{o}{/}\PYG{n}{step} \PYG{o}{\PYGZhy{}} \PYG{n}{accuracy}\PYG{p}{:} \PYG{l+m+mf}{0.6439} \PYG{o}{\PYGZhy{}} \PYG{n}{loss}\PYG{p}{:} \PYG{l+m+mf}{0.6257}
+    \PYG{n}{Acurácia} \PYG{n}{no} \PYG{n}{teste}\PYG{p}{:} \PYG{l+m+mf}{0.6434}
+\end{Verbatim}

@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{sklearn.metrics}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{roc\PYGZus{}curve}\PYG{p}{,} \PYG{n}{auc}
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib.pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+
+    \PYG{n}{fpr}\PYG{p}{,} \PYG{n}{tpr}\PYG{p}{,} \PYG{n}{thresholds} \PYG{o}{=} \PYG{n}{roc\PYGZus{}curve}\PYG{p}{(}\PYG{n}{yTest}\PYG{p}{,} \PYG{n}{yPredProb}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{())}
+    \PYG{n}{roc\PYGZus{}auc} \PYG{o}{=} \PYG{n}{auc}\PYG{p}{(}\PYG{n}{fpr}\PYG{p}{,} \PYG{n}{tpr}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{6}\PYG{p}{))}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{plot}\PYG{p}{(}\PYG{n}{fpr}\PYG{p}{,} \PYG{n}{tpr}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}blue\PYGZsq{}}\PYG{p}{,} \PYG{n}{lw}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Curva ROC (AUC = }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{roc\PYGZus{}auc}\PYG{l+s+si}{:}\PYG{l+s+s1}{.4f}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlim}\PYG{p}{([}\PYG{l+m+mf}{0.0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{])}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylim}\PYG{p}{([}\PYG{l+m+mf}{0.0}\PYG{p}{,} \PYG{l+m+mf}{1.0}\PYG{p}{])}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{xlabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Taxa de Falso Positivo (FPR)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Taxa de Verdadeiro Positivo (TPR)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{title}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Curva ROC para o Modelo de Classificação (Sinal vs. Fundo)\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{loc}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}lower right\PYGZsq{}}\PYG{p}{)}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

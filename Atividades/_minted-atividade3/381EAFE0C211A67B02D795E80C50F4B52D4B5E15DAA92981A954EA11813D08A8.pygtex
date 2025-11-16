@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{lowDesc} \PYG{o}{=} \PYG{n}{lowLevel}\PYG{o}{.}\PYG{n}{describe}\PYG{p}{()}
+    \PYG{n}{outliers} \PYG{o}{=} \PYG{p}{(}\PYG{n}{lowLevel} \PYG{o}{\PYGZgt{}} \PYG{n}{lowDesc}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mean\PYGZsq{}}\PYG{p}{]} \PYG{o}{+} \PYG{l+m+mi}{3} \PYG{o}{*} \PYG{n}{lowDesc}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}std\PYGZsq{}}\PYG{p}{])} \PYG{o}{|} \PYG{p}{(}\PYG{n}{lowLevel} \PYG{o}{\PYGZlt{}} \PYG{n}{lowDesc}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}mean\PYGZsq{}}\PYG{p}{]} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{3} \PYG{o}{*} \PYG{n}{lowDesc}\PYG{o}{.}\PYG{n}{loc}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}std\PYGZsq{}}\PYG{p}{])}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}Contagem de outliers potenciais por atributo:\PYGZdq{}}\PYG{p}{)}
+    \PYG{n+nb}{print}\PYG{p}{(}\PYG{n}{outliers}\PYG{o}{.}\PYG{n}{sum}\PYG{p}{())}
+\end{Verbatim}

@@ -1,0 +1,307 @@
+Vamos primeiro importar os dados que iremos utilizar. Como o arquivo que contém os dados é relativamente grande (69.6 MB), ele foi adicionado no drive e importado no Google Colab usando a biblioteca \verb|gdown|. Os dados originais serão armazenados na variável \verb|dados|.
+\begin{longlisting}
+    \begin{minted}{python}
+    import gdown
+    import pandas as pd
+
+    file = {
+        'filename': 'HIGGS_100k.csv',
+        "file_id" : "1mrzlmpPh4copC7ZULocAGhA1xAep88Sy"
+    }
+
+    url = f"https://drive.google.com/uc?id={file['file_id']}"
+    gdown.download(url, file['filename'], quiet=True)
+    print(f'{file['filename']} baixado com sucesso e armazenado em "dados".')
+
+    dados = pd.read_csv('HIGGS_100k.csv')
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    HIGGS_100k.csv baixado com sucesso e armazenado em "dados".
+\end{verbatim}
+
+Antes de começar, vamos renomear os atributos apropriadamente, dado que eles estão originalmente nomeados como números, o que torna a análise mais complicada. Como informado na proposta da atividade, as colunas em ordem são: \verb|class label|, \verb|lepton pT|, \verb|lepton eta|, \verb|lepton phi|, \verb|missing energy magnitude|, \verb|missing energy phi|, \verb|jet 1 pt|, \verb|jet 1 eta|, \verb|jet 1 phi|, \verb|jet 1 b-tag|, \verb|jet 2 pt|, \verb|jet 2 eta|, \verb|jet 2 phi|, \verb|jet 2 b-tag|, \verb|jet 3 pt|, \verb|jet 3 eta|, \verb|jet 3 phi|, \verb|jet 3 b-tag|, \verb|jet 4 pt|, \verb|jet 4 eta|, \verb|jet 4 phi|, \verb|jet 4 b-tag|, \verb|m_jj|, \verb|m_jjj|, \verb|m_lv|, \verb|m_jlv|, \verb|m_bb|, \verb|m_wbb| e \verb|m_wwbb|, portanto serão estes os nomes atribuidos a cada variável.
+\begin{longlisting}
+    \begin{minted}{python}
+    names = {
+    '1.000000000000000000e+00': 'class label',
+    '8.692932128906250000e-01': 'lepton pT',
+    '-6.350818276405334473e-01': 'lepton eta',
+    '2.256902605295181274e-01': 'lepton phi',
+    '3.274700641632080078e-01': 'missing energy magnitude',
+    '-6.899932026863098145e-01': 'missing energy phi',
+    '7.542022466659545898e-01': 'jet 1 pt',
+    '-2.485731393098831177e-01': 'jet 1 eta',
+    '-1.092063903808593750e+00': 'jet 1 phi',
+    '0.000000000000000000e+00': 'jet 1 b-tag',
+    '1.374992132186889648e+00': 'jet 2 pt',
+    '-6.536741852760314941e-01': 'jet 2 eta',
+    '9.303491115570068359e-01': 'jet 2 phi',
+    '1.107436060905456543e+00': 'jet 2 b-tag',
+    '1.138904333114624023e+00': 'jet 3 pt',
+    '-1.578198313713073730e+00': 'jet 3 eta',
+    '-1.046985387802124023e+00': 'jet 3 phi',
+    '0.000000000000000000e+00.1': 'jet 3 b-tag',
+    '6.579295396804809570e-01': 'jet 4 pt',
+    '-1.045456994324922562e-02': 'jet 4 eta',
+    '-4.576716944575309753e-02': 'jet 4 phi',
+    '3.101961374282836914e+00': 'jet 4 b-tag',
+    '1.353760004043579102e+00': 'm_jj',
+    '9.795631170272827148e-01': 'm_jjj',
+    '9.780761599540710449e-01': 'm_lv',
+    '9.200048446655273438e-01': 'm_jlv',
+    '7.216574549674987793e-01': 'm_bb',
+    '9.887509346008300781e-01': 'm_wbb',
+    '8.766783475875854492e-01': 'm_wwbb',
+    }
+
+    dados.rename(columns=names, inplace=True)
+    \end{minted}
+\end{longlisting}
+
+Como procedimento padrão, verifiquemos se existem dados faltantes e analisemos as características principais de cada um dos atributos.
+
+\begin{longlisting}
+    \begin{minted}{python}
+    dados.info()
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 100000 entries, 0 to 99999
+    Data columns (total 29 columns):
+    #   Column                    Non-Null Count   Dtype  
+    ---  ------                    --------------   -----  
+    0   class label               100000 non-null  float64
+    1   lepton pT                 100000 non-null  float64
+    2   lepton eta                100000 non-null  float64
+    3   lepton phi                100000 non-null  float64
+    4   missing energy magnitude  100000 non-null  float64
+    5   missing energy phi        100000 non-null  float64
+    6   jet 1 pt                  100000 non-null  float64
+    7   jet 1 eta                 100000 non-null  float64
+    8   jet 1 phi                 100000 non-null  float64
+    9   jet 1 b-tag               100000 non-null  float64
+    10  jet 2 pt                  100000 non-null  float64
+    11  jet 2 eta                 100000 non-null  float64
+    12  jet 2 phi                 100000 non-null  float64
+    13  jet 2 b-tag               100000 non-null  float64
+    14  jet 3 pt                  100000 non-null  float64
+    15  jet 3 eta                 100000 non-null  float64
+    16  jet 3 phi                 100000 non-null  float64
+    17  jet 3 b-tag               100000 non-null  float64
+    18  jet 4 pt                  100000 non-null  float64
+    19  jet 4 eta                 100000 non-null  float64
+    20  jet 4 phi                 100000 non-null  float64
+    21  jet 4 b-tag               100000 non-null  float64
+    22  m_jj                      100000 non-null  float64
+    23  m_jjj                     100000 non-null  float64
+    24  m_lv                      100000 non-null  float64
+    25  m_jlv                     100000 non-null  float64
+    26  m_bb                      100000 non-null  float64
+    27  m_wbb                     100000 non-null  float64
+    28  m_wwbb                    100000 non-null  float64
+    dtypes: float64(29)
+    memory usage: 22.1 MB
+\end{verbatim}
+
+\begin{longlisting}
+    \begin{minted}{python}
+    dados.describe()
+    \end{minted}
+\end{longlisting}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{cccccccc}
+        \toprule
+         & \verb|class label| & \verb|lepton pT| & \verb|lepton eta| & $\cdots$ & \verb|m_bb| & \verb|m_wbb| & \verb|m_wwbb|  \\ 
+        \midrule
+        count & 100000.0000 & 100000.0000 & 100000.0000 & $\cdots$ & 100000.0000 & 100000.0000 & 100000.0000 \\
+        mean & 0.528330 & 0.990366 & -0.003806 & $\cdots$ & 0.973076 & 1.031874 & 0.959203 \\
+        std & 0.499199 & 0.561840 &	1.004840 & $\cdots$ & 0.523557 & 0.363395 & 0.313258 \\
+        min & 0.000000 & 0.274697 & -2.434976 & $\cdots$ & 0.048125 & 0.303350 & 0.350939 \\
+        25\% & 0.000000 & 0.590936 & -0.741244 & $\cdots$ & 0.673789 & 0.819170 & 0.769964 \\
+        50\% & 1.000000 & 0.854835 & -0.002976 & $\cdots$ & 0.874004 & 0.947037 & 0.871038 \\
+        75\% & 1.000000 & 1.236776 & 0.735292 & $\cdots$ & 1.139816 & 1.139032 & 1.057479 \\
+        max & 1.000000 & 7.805887 & 2.433894 & $\cdots$ & 11.994177 & 7.318191 & 6.015647 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+É evidente que todos os dados estão em uma mesma escala de valores, então a priori não será necessário nenhum tipo de reescalonamento. O foco é utilizar apenas os atributos entitulados \textit{low-level}, então separaremos os 29 atributos em 3 conjuntos: o que contém apenas a variável alvo, que é a \verb|class label|, o que contém os 21 atributos \textit{low-level} e os 7 restantes que são os atributos \textit{high-level}.
+\begin{longlisting}
+    \begin{minted}{python}
+    classLabel = dados.iloc[:, 0]
+    lowLevel = dados.iloc[:, 1:22]
+    highLevel = dados.iloc[:, 22:29]
+    \end{minted}
+\end{longlisting}
+
+Como são muitos dados (100.000), é interessante verificar se eles estão balanceados, isto é, se a quantidade de dados com \verb|class label == 1| e semelhante à quantidade de dados com \verb|class label == 0|.
+\begin{longlisting}
+    \begin{minted}{python}
+    print("Distribuição das classes:")
+    print(classLabel.value_counts(normalize=True) * 100)  # Em percentual    
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Distribuição das classes:
+    class label
+    1.0    52.833
+    0.0    47.167
+    Name: proportion, dtype: float64
+\end{verbatim}
+
+Temos então um conjunto de dados bem balanceado, como esperado, dado que estes foram utilizados no artigo original, com $\approx 53\%$ dos dados classificados como sinal  (\verb|class label == 1|) e $\approx 47\%$ classificados como fundo (\verb|class label == 0|). Podemos então separar os dados em conjuntos de treino, validação e teste para treinar a rede neural. Faremos uma separação de $60\%$ para treino, validação $15\%$ e $25\%$ para teste. E para reprodutibilidade, utilizaremos um \verb|random_state == 42|.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.model_selection import train_test_split
+    import numpy as np
+
+    trainRatio = 0.6
+    validationRatio = 0.15
+    testRatio = 0.25
+
+    randomState = 42
+
+    X = lowLevel
+    y = classLabel
+
+    XTrain, XTest, yTrain, yTest = train_test_split(X, y, test_size = 1 - trainRatio, stratify = y, random_state = randomState)
+    XVal, XTest, yVal, yTest = train_test_split(XTest, yTest, test_size = testRatio/(testRatio + validationRatio), stratify = yTest, random_state = randomState)
+    \end{minted}
+\end{longlisting}
+
+Uma verificação importante a se fazer com os dados é sobre o comportamento dos atributos em relação às ocorrências, isto é, a frequência de eventos. Para o conjunto de dados de treino que iremos utilizar (\verb|XTrain|), podemos fazer o plot dos 21 atributos \textit{low-level} com base na quantidade de dados separados em sinal e fundo, e verificar o comportamento destes em relação à frequência dos eventos.
+\begin{longlisting}
+    \begin{minted}{python}
+    import matplotlib.pyplot as plt
+    from matplotlib.lines import Line2D
+
+    lowLevelWL = XTrain.copy()
+    lowLevelWL['class label'] = classLabel
+
+    fig, axs = plt.subplots(7, 3, figsize=(15, 35))
+    axs = axs.flatten()
+
+    for i, feature in enumerate(lowLevel.columns):
+        data1 = lowLevelWL[lowLevelWL['class label'] == 1][feature]
+        data0 = lowLevelWL[lowLevelWL['class label'] == 0][feature]
+
+        min_all = min(data1.min(), data0.min())
+        max_all = max(data1.max(), data0.max())
+
+        bins = np.linspace(min_all, max_all, 51)
+
+        axs[i].hist(data1, histtype='step', linewidth=2, color='black', label='Sinal (1)', bins=bins, density=False)
+        axs[i].hist(data0, histtype='step', linewidth=2, color='red', linestyle='dotted', label='Fundo (0)', bins=bins, density=False)
+
+        axs[i].set_title(f'Distribuição de {feature}')
+        axs[i].set_xlabel(feature)
+        axs[i].set_ylabel('Frequência de Eventos')
+        axs[i].legend()
+
+        legend_elements = [
+            Line2D([0], [0], color='black', linewidth=2, label='Sinal (1)'),
+            Line2D([0], [0], color='red', linewidth=2, linestyle='dotted', label='Fundo (0)')
+        ]
+        axs[i].legend(handles=legend_elements)
+
+        axs[i].set_xlim(min_all, max_all)
+
+    plt.tight_layout()
+    plt.show()
+    \end{minted}
+\end{longlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.9\linewidth]{figures/D1.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.9\linewidth]{figures/D2.png}
+    \includegraphics[width = 0.9\linewidth]{figures/D3.png}
+    \includegraphics[width = 0.9\linewidth]{figures/D4.png}
+    \includegraphics[width = 0.9\linewidth]{figures/D5.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.9\linewidth]{figures/D6.png}
+    \includegraphics[width = 0.9\linewidth]{figures/D7.png}
+\end{figure}
+
+Podemos ver então alguns comportamentos que se repetem em relação a alguns atributos (o que é de certa forma esperado, dado o nome de alguns deles). É possível então separar os atributos em 4 tipos de comportamento:
+\begin{itemize}
+    \item Comportamento similar ao de uma curva da forma $axe^{-x}$, com $a$ constante (não necessariamente essa função, mas muito similar):
+    \begin{itemize}
+        \item \verb|lepton pT|, \verb|missing energy magnitude|, \verb|jet 1 pt|, \verb|jet 2 pt|, \verb|jet 3 pt| e \verb|jet 4 pt|;
+    \end{itemize}
+    \item Comportamento mais uniforme uniforme, similar a uma curva $y=a$, com $a$ constante:
+    \begin{itemize}
+        \item \verb|lepton phi|, \verb|missing energy phi|, \verb|jet 1 phi|, \verb|jet 2 phi|, \verb|jet 3 phi| e \verb|jet 4 phi|;
+    \end{itemize}
+    \item Comportamento similar a uma gaussiana $ae^{-x^{2}}$, com $a$ constante:
+    \begin{itemize}
+        \item \verb|lepton eta|, \verb|jet 1 eta|, \verb|jet 2 eta|, \verb|jet 3 eta| e \verb|jet 4 eta|;
+    \end{itemize}
+    \item Comportamento de "picos":
+    \begin{itemize}
+        \item \verb|jet 1 b-tag|, \verb|jet 2 b-tag|, \verb|jet 3 b-tag| e \verb|jet 4 b-tag|.
+    \end{itemize}
+\end{itemize}
+
+Estes comportamentos distintos implicam em cinemáticas distintas do conjunto de dados, permitindo mais informações físicas a serem interpretadas. É interessante agora verificar se os atributos em questão possuem alguma correlação forte, para caso exista, lidarmos com isto (mesmo que neste caso a correlação é inesperada, dados que os atributos são atributos físicos independentes).
+\begin{longlisting}
+    \begin{minted}{python}
+    import seaborn as sns
+
+    corr_matrix = XTrain.corr()
+
+    sns.heatmap(corr_matrix, annot=False, cmap='inferno', vmin=-1, vmax=1)
+    plt.title('Matriz de Correlação dos 21 atributos low-level')
+    plt.show()
+    \end{minted}
+\end{longlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{figures/correlation21.png}
+\end{figure}
+
+Vemos então, conforme o esperado, que os atributos não possuem nenhuma correlação muito forte, o que faz com que não precisemos lidar com esse tipo de problema. Por fim, podemos verificar a presença de \textit{outliers} no conjunto de dados completo (se não houver no conjunto todo, logo não há nos conjuntos de treino, validação e teste). Consideraremos valores potencialmente descritos como \textit{outliers} aqueles cujo módulo da diferença entre o valor $x$ e a média $\mu$ forem maior do que 3 vezes o desvio padrão do atributo, isto é $|x − \mu| > 3\sigma$.
+\begin{longlisting}
+    \begin{minted}{python}
+    lowDesc = lowLevel.describe()
+    outliers = (lowLevel > lowDesc.loc['mean'] + 3 * lowDesc.loc['std']) | (lowLevel < lowDesc.loc['mean'] - 3 * lowDesc.loc['std'])
+    print("Contagem de outliers potenciais por atributo:")
+    print(outliers.sum())
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Contagem de outliers potenciais por atributo:
+    lepton pT                   1480
+    lepton eta                     0
+    lepton phi                     0
+    missing energy magnitude    1279
+    missing energy phi             0
+    jet 1 pt                    1965
+    jet 1 eta                      0
+    jet 1 phi                      0
+    jet 1 b-tag                    0
+    jet 2 pt                    1615
+    jet 2 eta                      0
+    jet 2 phi                      0
+    jet 2 b-tag                    0
+    jet 3 pt                    1388
+    jet 3 eta                      0
+    jet 3 phi                      0
+    jet 3 b-tag                    0
+    jet 4 pt                    1481
+    jet 4 eta                      0
+    jet 4 phi                      0
+    jet 4 b-tag                    0
+    dtype: int64
+\end{verbatim}
+
+Levando em consideração que o conjunto de dados inteiro possui 100.000 dados, a quantidade de valores que podem possivelmente ser \textit{outliers} é muito menor, então podemos desconsiderar o tratamento de \textit{outliers} nos dados.

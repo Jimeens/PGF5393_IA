@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{tensorflow.keras.models}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{load\PYGZus{}model}
+
+    \PYG{n}{gdown}\PYG{o}{.}\PYG{n}{download}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}https://drive.google.com/uc?id=1QKsAdoLJUO09CdT\PYGZhy{}6KNYkfLyvcC5yL8o\PYGZdq{}}\PYG{p}{,} \PYG{l+s+s2}{\PYGZdq{}higgs\PYGZus{}classifier\PYGZus{}keras.keras\PYGZdq{}}\PYG{p}{,} \PYG{n}{quiet}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+
+    \PYG{n}{model} \PYG{o}{=} \PYG{n}{load\PYGZus{}model}\PYG{p}{(}\PYG{l+s+s2}{\PYGZdq{}higgs\PYGZus{}classifier\PYGZus{}keras.keras\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

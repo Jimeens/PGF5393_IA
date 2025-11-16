@@ -1,0 +1,297 @@
+Feita a pré-análise, podemos partir para criação da rede neural e seu treinamento. O pacote escolhido para isso vai ser o \verb|Keras|. Feitos alguns testes com algumas redes de \textbf{perceptrons}, a melhor opção foi uma rede de 5 camadas, onde 3 delas vão ter 64 \textbf{perceptrons} com função de ativação \verb|relu|, uma vai ter 32 \textbf{perceptrons}, também com ativação \verb|relu| e uma camada final com um único \textbf{perceptron} com ativação \verb|sigmoid|. Para compilar, utilizaremos a opção de otimizador \verb|adam|, a função perda \verb|binary_crossentropy|, dado que nosso alvo consiste de resultados 0 ou 1 e a métrica vai ser de acurácia. A fim de evitar \textit{overfitting}, usaremos um \verb|callback| definido pela função \verb|EarlyStopping|, que vai interromper o treinamento quando a perda voltar a subir ao invés de continuar decrescendo. Utilizaremos também 50 \verb|epochs| e um \verb|batch_size| de 32, para manter a rede o mais simples possível.
+\begin{longlisting}
+    \begin{minted}{python}
+    import tensorflow as tf
+    from tensorflow import keras
+    from tensorflow.keras import layers
+    from tensorflow.keras.callbacks import EarlyStopping
+
+    # Modelo simples MLP
+    model = keras.Sequential([
+        layers.Input(shape=(len(lowLevel.columns),)),
+        layers.Dense(64, activation='relu'),
+        layers.Dropout(0.2),
+        layers.Dense(64, activation='relu'),
+        layers.Dropout(0.2),
+        layers.Dense(64, activation='relu'),
+        layers.Dropout(0.2),
+        layers.Dense(32, activation='relu'),
+        layers.Dense(1, activation='sigmoid')
+    ])
+
+    model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+    earlyStop = EarlyStopping(monitor='val_loss', patience=5, restore_best_weights=True)
+
+    history = model.fit(XTrain, yTrain, epochs=50, batch_size=32, validation_data=(XVal, yVal), callbacks=[earlyStop], verbose=1)
+    \end{minted}
+\end{longlisting}
+\begin{longlisting}
+    \begin{minted}{python}
+    Epoch 1/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 10s 4ms/step - accuracy: 0.5333 - loss: 0.6917 - val_accuracy: 0.5763 - val_loss: 0.6721
+    Epoch 2/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 8s 4ms/step - accuracy: 0.5735 - loss: 0.6745 - val_accuracy: 0.5960 - val_loss: 0.6633
+    Epoch 3/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 8s 3ms/step - accuracy: 0.5918 - loss: 0.6676 - val_accuracy: 0.6010 - val_loss: 0.6593
+    Epoch 4/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6020 - loss: 0.6610 - val_accuracy: 0.6092 - val_loss: 0.6534
+    Epoch 5/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6061 - loss: 0.6554 - val_accuracy: 0.6113 - val_loss: 0.6533
+    Epoch 6/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6138 - loss: 0.6533 - val_accuracy: 0.6143 - val_loss: 0.6564
+    Epoch 7/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6121 - loss: 0.6516 - val_accuracy: 0.6187 - val_loss: 0.6493
+    Epoch 8/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6133 - loss: 0.6504 - val_accuracy: 0.6173 - val_loss: 0.6463
+    Epoch 9/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 10s 3ms/step - accuracy: 0.6230 - loss: 0.6469 - val_accuracy: 0.6192 - val_loss: 0.6454
+    Epoch 10/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6257 - loss: 0.6442 - val_accuracy: 0.6297 - val_loss: 0.6419
+    Epoch 11/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6225 - loss: 0.6448 - val_accuracy: 0.6276 - val_loss: 0.6420
+    Epoch 12/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 7s 3ms/step - accuracy: 0.6281 - loss: 0.6404 - val_accuracy: 0.6312 - val_loss: 0.6423
+    Epoch 13/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 9s 3ms/step - accuracy: 0.6263 - loss: 0.6413 - val_accuracy: 0.6251 - val_loss: 0.6424
+    Epoch 14/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6365 - loss: 0.6368 - val_accuracy: 0.6323 - val_loss: 0.6388
+    Epoch 15/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 11s 3ms/step - accuracy: 0.6330 - loss: 0.6366 - val_accuracy: 0.6291 - val_loss: 0.6382
+    Epoch 16/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6308 - loss: 0.6381 - val_accuracy: 0.6337 - val_loss: 0.6350
+    Epoch 17/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6369 - loss: 0.6345 - val_accuracy: 0.6354 - val_loss: 0.6355
+    Epoch 18/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6320 - loss: 0.6374 - val_accuracy: 0.6370 - val_loss: 0.6343
+    Epoch 19/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 2ms/step - accuracy: 0.6364 - loss: 0.6338 - val_accuracy: 0.6385 - val_loss: 0.6334
+    Epoch 20/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6354 - loss: 0.6345 - val_accuracy: 0.6381 - val_loss: 0.6327
+    Epoch 21/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 10s 3ms/step - accuracy: 0.6409 - loss: 0.6319 - val_accuracy: 0.6398 - val_loss: 0.6315
+    Epoch 22/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6360 - loss: 0.6318 - val_accuracy: 0.6377 - val_loss: 0.6319
+    Epoch 23/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6395 - loss: 0.6315 - val_accuracy: 0.6397 - val_loss: 0.6340
+    Epoch 24/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6421 - loss: 0.6289 - val_accuracy: 0.6375 - val_loss: 0.6310
+    Epoch 25/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 8s 4ms/step - accuracy: 0.6437 - loss: 0.6279 - val_accuracy: 0.6354 - val_loss: 0.6336
+    Epoch 26/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6464 - loss: 0.6266 - val_accuracy: 0.6411 - val_loss: 0.6304
+    Epoch 27/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6448 - loss: 0.6275 - val_accuracy: 0.6425 - val_loss: 0.6288
+    Epoch 28/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6463 - loss: 0.6262 - val_accuracy: 0.6448 - val_loss: 0.6291
+    Epoch 29/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6468 - loss: 0.6264 - val_accuracy: 0.6431 - val_loss: 0.6299
+    Epoch 30/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6436 - loss: 0.6282 - val_accuracy: 0.6445 - val_loss: 0.6294
+    Epoch 31/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6417 - loss: 0.6268 - val_accuracy: 0.6408 - val_loss: 0.6280
+    Epoch 32/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6482 - loss: 0.6244 - val_accuracy: 0.6473 - val_loss: 0.6275
+    Epoch 33/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6480 - loss: 0.6222 - val_accuracy: 0.6435 - val_loss: 0.6273
+    Epoch 34/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6498 - loss: 0.6222 - val_accuracy: 0.6392 - val_loss: 0.6288
+    Epoch 35/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6481 - loss: 0.6238 - val_accuracy: 0.6415 - val_loss: 0.6285
+    Epoch 36/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6530 - loss: 0.6224 - val_accuracy: 0.6436 - val_loss: 0.6260
+    Epoch 37/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6495 - loss: 0.6221 - val_accuracy: 0.6472 - val_loss: 0.6272
+    Epoch 38/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 10s 3ms/step - accuracy: 0.6486 - loss: 0.6239 - val_accuracy: 0.6436 - val_loss: 0.6263
+    Epoch 39/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6542 - loss: 0.6179 - val_accuracy: 0.6477 - val_loss: 0.6257
+    Epoch 40/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 10s 3ms/step - accuracy: 0.6509 - loss: 0.6219 - val_accuracy: 0.6467 - val_loss: 0.6243
+    Epoch 41/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6511 - loss: 0.6211 - val_accuracy: 0.6486 - val_loss: 0.6243
+    Epoch 42/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6528 - loss: 0.6202 - val_accuracy: 0.6483 - val_loss: 0.6254
+    Epoch 43/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6562 - loss: 0.6185 - val_accuracy: 0.6485 - val_loss: 0.6240
+    Epoch 44/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6537 - loss: 0.6174 - val_accuracy: 0.6478 - val_loss: 0.6248
+    Epoch 45/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6537 - loss: 0.6178 - val_accuracy: 0.6499 - val_loss: 0.6250
+    Epoch 46/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 5s 3ms/step - accuracy: 0.6510 - loss: 0.6224 - val_accuracy: 0.6495 - val_loss: 0.6245
+    Epoch 47/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6562 - loss: 0.6168 - val_accuracy: 0.6489 - val_loss: 0.6257
+    Epoch 48/50
+    1875/1875 ━━━━━━━━━━━━━━━━━━━━ 6s 3ms/step - accuracy: 0.6547 - loss: 0.6184 - val_accuracy: 0.6502 - val_loss: 0.6241
+    \end{minted}
+\end{longlisting}
+
+Feito o treinamento da rede, podemos salvar a acurácia final obtida.
+\begin{longlisting}
+    \begin{minted}{python}
+    test_loss, test_acc = model.evaluate(XTest, yTest)
+    print(f'Acurácia no teste: {test_acc:.4f}')
+    \end{minted}
+\end{longlisting}
+\begin{longlisting}
+    \begin{minted}{python}
+    782/782 ━━━━━━━━━━━━━━━━━━━━ 1s 2ms/step - accuracy: 0.6439 - loss: 0.6257
+    Acurácia no teste: 0.6434
+    \end{minted}
+\end{longlisting}
+
+Além disso, podemos plotar os gráficos de perda e acurácia com os dados de treino e validação para verificar o quão bom foi o treinamento da rede.
+\begin{longlisting}
+    \begin{minted}{python}
+    plt.figure(figsize=(10,4))
+    plt.subplot(1,2,1)
+    plt.plot(history.history['loss'], label='treino')
+    plt.plot(history.history['val_loss'], label='validação')
+    plt.title('Perda')
+    plt.legend()
+
+    plt.subplot(1,2,2)
+    plt.plot(history.history['accuracy'], label='treino')
+    plt.plot(history.history['val_accuracy'], label='validação')
+    plt.title('Acurácia')
+    plt.legend()
+    plt.show()
+    \end{minted}
+\end{longlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{figures/losscaccuracy.png}
+\end{figure}
+
+Visualmente podemos ver que as linhas seguem o mesmo caminho e não parece haver qualquer indício de overfitting, apenas a função de perda parece apresentar uma leve distância entre treino e validação, mas nada muito relevante, dado que o treinamento foi interrompido antes que qualquer problema pudesse vir a aparecer.
+
+Ao treinar a rede e obter bons resultados, podemos gravar o modelo em um arquivo \verb|keras| e utilizar ele sempre que precisarmos utilizá-lo sem a necessidade de treinar a rede novamente, pois além de custar tempo, os resultados vão sempre ser relativamente diferentes, não muito distante, pois os parâmetros são os mesmos, mas os resultados vão possuir comportamentos distintos, então para garantir a reprodutibilidade fazemos este procedimento. 
+\begin{longlisting}
+    \begin{minted}{python}
+    model.save("higgs_classifier_keras.keras")
+    print("Modelo gravado como higgs_classifier_keras.keras")
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+    Modelo gravado como higgs_classifier_keras.keras
+\end{verbatim}
+
+Antes de prosseguir, há uma nota a ser feita em relação à esta última ação. Ao executar o código por completo no Google Colab, a rede neural vai ser treinada novamente e os valores que aparecem em cada \verb|epoch|, a acurácia total final e os gráficos de perda e acurácia, vão ser ligeiramente diferentes, então para evitar que sempre que os testes da rede forem ser executados no Colab tenhamos que re-treinar a rede, utilizaremos o modelo salvo no \verb|higgs_classifier_keras.keras|. Portanto, faremos o download deste modelo, inserimos ele em um drive público, fazemos o download dele dentro do Colab utilizando a biblioteca \verb|gdown| e carregamos o modelo via \verb|load_model|.
+\begin{longlisting}
+    \begin{minted}{python}
+    from tensorflow.keras.models import load_model
+
+    gdown.download("https://drive.google.com/uc?id=1QKsAdoLJUO09CdT-6KNYkfLyvcC5yL8o", "higgs_classifier_keras.keras", quiet=True)
+
+    model = load_model("higgs_classifier_keras.keras")
+    \end{minted}
+\end{longlisting}
+
+Completo o treinamento, o espectro da massa $m_{WWbb}$ pode ser construido para os dados, basta fazer uma simples separação do conjunto \verb|highLevel| em treino e teste para construir esse espectro com as predições de sinal e fundo. Os comandos abaixo são essencialmente para plotar apenas as curvas acima de um histograma (puramente estético e para se parecer mais com o artigo original), então o foco é na predição, onde fazemos com que a probabilidade estimada de que a amostra pertença à classe positiva seja classificada como sinal para valores $> 0.5$ e como fundo para $\leqslant 0.5$.
+\begin{longlisting}
+    \begin{minted}{python}
+    highLevelTrain, highLevelTest = train_test_split(highLevel, test_size=0.25, random_state=42)
+    mWWbbTest = highLevelTest['m_wwbb'].values
+
+    yPredProb = model.predict(XTest)
+    yPred = (yPredProb > 0.5).astype(int).flatten()
+
+    mWWbb = mWWbbTest
+
+    mSinalTrue = mWWbb[yTest == 1]
+    mSinalPred = mWWbb[yPred == 1]
+
+    mFundoTrue = mWWbb[yTest == 0]
+    mFundoPred = mWWbb[yPred == 0]
+
+    def make_bins(data):
+        vmin = data.min()
+        vmax = data.max()
+        return np.linspace(vmin, vmax, 101)
+
+    fig, (axSinal, axFundo) = plt.subplots(2, 1, figsize=(10, 9), sharex=False)
+
+    binsSinal = make_bins(np.concatenate([mSinalTrue, mSinalPred]))
+    axSinal.hist(mSinalTrue, bins=binsSinal, histtype='step', linewidth=2, color='black', label='Sinal real')
+    axSinal.hist(mSinalPred, bins=binsSinal, histtype='step', linewidth=1, color='magenta', linestyle='dashed', label='Sinal predito')
+
+    axSinal.set_title('Sinal: $m_{wwbb}$ (real vs predito)')
+    axSinal.set_ylabel('Frequência de eventos')
+    axSinal.set_xlim(binsSinal[0], binsSinal[-1])
+
+    legendaSinal = [
+        Line2D([0], [0], color='black', lw=2, label='Sinal real'),
+        Line2D([0], [0], color='magenta', lw=1, linestyle='dashed', label='Sinal predito')
+    ]
+    axSinal.legend(handles=legendaSinal, loc='upper right')
+
+    binsFundo = make_bins(np.concatenate([mFundoTrue, mFundoPred]))
+    axFundo.hist(mFundoTrue, bins=binsFundo, histtype='step', linewidth=2, color='red', linestyle='dotted', label='Fundo real')
+    axFundo.hist(mFundoPred, bins=binsFundo, histtype='step', linewidth=1, color='blue', linestyle='dashed', label='Fundo predito')
+
+    axFundo.set_title('Fundo: $m_{wwbb}$ (real vs predito)')
+    axFundo.set_xlabel('$m_{wwbb}$')
+    axFundo.set_ylabel('Frequência de eventos')
+    axFundo.set_xlim(binsFundo[0], binsFundo[-1])
+
+    legendaFundo = [
+        Line2D([0], [0], color='red', lw=2, linestyle='dotted', label='Fundo real'),
+        Line2D([0], [0], color='blue', lw=1, linestyle='dashed', label='Fundo predito')
+    ]
+    axFundo.legend(handles=legendaFundo, loc='upper right')
+
+    plt.tight_layout()
+    plt.show()
+    \end{minted}
+\end{longlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width = 0.7\linewidth]{figures/signalbg.png}
+\end{figure}
+
+Por fim, para verificar o quão bom são os resultados obtidos a partir do treinamento da rede, podemos utilizar a função \verb|classification_report| do \verb|sklearn| para obter as principais métricas que são a \textbf{precisão}, \textbf{recall}, \textbf{f1-score} e a \textbf{acurácia} que já obtivemos no final do treinamento. Essa função vai nos fornecer alguns resultados a mais, mas não daremos atenção à elas, apenas às principais comentadas anteriormente.
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.metrics import classification_report
+
+    print(classification_report(yTest, yPred))
+    \end{minted}
+\end{longlisting}
+\begin{verbatim}
+                  precision    recall  f1-score   support
+
+             0.0       0.63      0.60      0.61     11792
+             1.0       0.65      0.68      0.67     13208
+
+        accuracy                           0.64     25000
+       macro avg       0.64      0.64      0.64     25000
+    weighted avg       0.64      0.64      0.64     25000
+\end{verbatim}
+
+Obtemos então para o fundo valores de precisão de $\approx 63\%$, um recall de $\approx 60\%$ e um f1-score $\approx 61\%$, o que são valores muito bons levando em conta que usamos uma rede multicamadas de \textbf{perceptrons} simples. O mesmo vale pro caso de sinal, onde os valores de precisão ($\approx 65\%$), recall ($\approx 68\%$) e f1-score ($\approx 67\%$) fornecem valores relativamente altos e indicam um bom resultado da predição. Além destas métricas, podemos construir uma curva ROC e determinar a área abaixo desta curva (AUC).
+\begin{longlisting}
+    \begin{minted}{python}
+    from sklearn.metrics import roc_curve, auc
+    import matplotlib.pyplot as plt
+
+    fpr, tpr, thresholds = roc_curve(yTest, yPredProb.flatten())
+    roc_auc = auc(fpr, tpr)
+
+    plt.figure(figsize=(8, 6))
+    plt.plot(fpr, tpr, color='blue', lw=2, label=f'Curva ROC (AUC = {roc_auc:.4f})')
+    plt.xlim([0.0, 1.0])
+    plt.ylim([0.0, 1.0])
+    plt.xlabel('Taxa de Falso Positivo (FPR)')
+    plt.ylabel('Taxa de Verdadeiro Positivo (TPR)')
+    plt.title('Curva ROC para o Modelo de Classificação (Sinal vs. Fundo)')
+    plt.legend(loc='lower right')
+    plt.show()
+    \end{minted}
+\end{longlisting}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{figures/ROC.png}
+\end{figure}
+
+O resultado de $\text{AUC} \approx 0.69$ pode ser considerado muito bom, levando em conta que quanto mais próximo de 1, melhor é o modelo. Além disso, ao olhar para o artigo original, a figura suplementar 1.(a) apresenta um gráfico similar à este, cujo valor de AUC utilizando redes neurais foi de $\text{AUC} = 0.73$, concluindo que os resultados obtidos pela rede neural aqui construída são bons o suficiente para extrair a física de interesse.

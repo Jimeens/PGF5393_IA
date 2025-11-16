@@ -1,0 +1,38 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{k+kn}{import}\PYG{+w}{ }\PYG{n+nn}{matplotlib.pyplot}\PYG{+w}{ }\PYG{k}{as}\PYG{+w}{ }\PYG{n+nn}{plt}
+    \PYG{k+kn}{from}\PYG{+w}{ }\PYG{n+nn}{matplotlib.lines}\PYG{+w}{ }\PYG{k+kn}{import} \PYG{n}{Line2D}
+
+    \PYG{n}{lowLevelWL} \PYG{o}{=} \PYG{n}{XTrain}\PYG{o}{.}\PYG{n}{copy}\PYG{p}{()}
+    \PYG{n}{lowLevelWL}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}class label\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{classLabel}
+
+    \PYG{n}{fig}\PYG{p}{,} \PYG{n}{axs} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{subplots}\PYG{p}{(}\PYG{l+m+mi}{7}\PYG{p}{,} \PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{35}\PYG{p}{))}
+    \PYG{n}{axs} \PYG{o}{=} \PYG{n}{axs}\PYG{o}{.}\PYG{n}{flatten}\PYG{p}{()}
+
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{feature} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{lowLevel}\PYG{o}{.}\PYG{n}{columns}\PYG{p}{):}
+        \PYG{n}{data1} \PYG{o}{=} \PYG{n}{lowLevelWL}\PYG{p}{[}\PYG{n}{lowLevelWL}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}class label\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{][}\PYG{n}{feature}\PYG{p}{]}
+        \PYG{n}{data0} \PYG{o}{=} \PYG{n}{lowLevelWL}\PYG{p}{[}\PYG{n}{lowLevelWL}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}class label\PYGZsq{}}\PYG{p}{]} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{][}\PYG{n}{feature}\PYG{p}{]}
+
+        \PYG{n}{min\PYGZus{}all} \PYG{o}{=} \PYG{n+nb}{min}\PYG{p}{(}\PYG{n}{data1}\PYG{o}{.}\PYG{n}{min}\PYG{p}{(),} \PYG{n}{data0}\PYG{o}{.}\PYG{n}{min}\PYG{p}{())}
+        \PYG{n}{max\PYGZus{}all} \PYG{o}{=} \PYG{n+nb}{max}\PYG{p}{(}\PYG{n}{data1}\PYG{o}{.}\PYG{n}{max}\PYG{p}{(),} \PYG{n}{data0}\PYG{o}{.}\PYG{n}{max}\PYG{p}{())}
+
+        \PYG{n}{bins} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{linspace}\PYG{p}{(}\PYG{n}{min\PYGZus{}all}\PYG{p}{,} \PYG{n}{max\PYGZus{}all}\PYG{p}{,} \PYG{l+m+mi}{51}\PYG{p}{)}
+
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{data1}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}black\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal (1)\PYGZsq{}}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{bins}\PYG{p}{,} \PYG{n}{density}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{hist}\PYG{p}{(}\PYG{n}{data0}\PYG{p}{,} \PYG{n}{histtype}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}step\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dotted\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo (0)\PYGZsq{}}\PYG{p}{,} \PYG{n}{bins}\PYG{o}{=}\PYG{n}{bins}\PYG{p}{,} \PYG{n}{density}\PYG{o}{=}\PYG{k+kc}{False}\PYG{p}{)}
+
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{}Distribuição de }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{feature}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlabel}\PYG{p}{(}\PYG{n}{feature}\PYG{p}{)}
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}ylabel}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}Frequência de Eventos\PYGZsq{}}\PYG{p}{)}
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{()}
+
+        \PYG{n}{legend\PYGZus{}elements} \PYG{o}{=} \PYG{p}{[}
+            \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}black\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Sinal (1)\PYGZsq{}}\PYG{p}{),}
+            \PYG{n}{Line2D}\PYG{p}{([}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{],} \PYG{n}{color}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}red\PYGZsq{}}\PYG{p}{,} \PYG{n}{linewidth}\PYG{o}{=}\PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{linestyle}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}dotted\PYGZsq{}}\PYG{p}{,} \PYG{n}{label}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}Fundo (0)\PYGZsq{}}\PYG{p}{)}
+        \PYG{p}{]}
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{legend}\PYG{p}{(}\PYG{n}{handles}\PYG{o}{=}\PYG{n}{legend\PYGZus{}elements}\PYG{p}{)}
+
+        \PYG{n}{axs}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{set\PYGZus{}xlim}\PYG{p}{(}\PYG{n}{min\PYGZus{}all}\PYG{p}{,} \PYG{n}{max\PYGZus{}all}\PYG{p}{)}
+
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{tight\PYGZus{}layout}\PYG{p}{()}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{()}
+\end{Verbatim}

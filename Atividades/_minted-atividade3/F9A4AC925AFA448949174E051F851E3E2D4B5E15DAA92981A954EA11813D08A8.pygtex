@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+    \PYG{n}{classLabel} \PYG{o}{=} \PYG{n}{dados}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{0}\PYG{p}{]}
+    \PYG{n}{lowLevel} \PYG{o}{=} \PYG{n}{dados}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{1}\PYG{p}{:}\PYG{l+m+mi}{22}\PYG{p}{]}
+    \PYG{n}{highLevel} \PYG{o}{=} \PYG{n}{dados}\PYG{o}{.}\PYG{n}{iloc}\PYG{p}{[:,} \PYG{l+m+mi}{22}\PYG{p}{:}\PYG{l+m+mi}{29}\PYG{p}{]}
+\end{Verbatim}
